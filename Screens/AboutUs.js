@@ -70,7 +70,25 @@ export default function AboutUs(){
       )
 
 }
-
+function OptionButton({icon, label, onPress, isLastOption}) {
+    return (
+      <RectButton
+        style={[styles1.option, isLastOption && styles1.lastOption]}
+        onPress={onPress}>
+        <View style={{flexDirection: 'row'}}>
+          <View style={styles1.optionIconContainer}>
+            <Icon name={icon} size={22} color="skyblue" />
+            {/* <FontAwesome.Button name={icon} size={22} backgroundColor="#3b5998"> */}
+            {/* </FontAwesome.Button> */}
+          </View>
+          <View style={styles1.optionTextContainer}>
+            <Text style={styles1.optionText}>{label}</Text>
+          </View>
+        </View>
+      </RectButton>
+    );
+  }
+  
 const styles1 = StyleSheet.create({
     container: {
       flex: 1,
