@@ -6,7 +6,7 @@ import AboutUs from '../Screens/AboutUs';
 import Info from '../Screens/Info';
 import Login from '../Screens/Login';
 import SignUp from '../Screens/SignUp';
-
+import TodoHome from '../Screens/TodoHome';
 const Stack = createStackNavigator()
 
 export default function HomeStack(){
@@ -15,22 +15,11 @@ export default function HomeStack(){
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen name='Home' component={Home} />
-          
             <Stack.Screen name='AboutUs' component={AboutUs} />
-          
             <Stack.Screen name='Info' component={Info} />
-          
-        
-
-        
-          
             <Stack.Screen name='Login' component={Login} />
-          
-        
-
-        
-          
             <Stack.Screen name='SignUp' component={SignUp} />
+            <Stack.Screen name='TodoHome' component={TodoHome} />
           </Stack.Navigator>
         </NavigationContainer>
 
