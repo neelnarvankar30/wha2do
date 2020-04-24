@@ -7,7 +7,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {RectButton, ScrollView} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function Login(){
+export default function Login(props){
+
+  const { navigation } = props
     return (
         <View style={styles.container}>
           <TextInput

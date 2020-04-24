@@ -29,7 +29,7 @@ return (
         <View
           style={{
             flex: 1,
-            backgroundColor: '#00B3CC',
+            backgroundColor: '#add8e6',
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
@@ -44,7 +44,7 @@ return (
           style={{
             flex: 2,
             flexDirection: 'row',
-            backgroundColor: '#00B3CC',
+            backgroundColor: '#add8e6',
             justifyContent: 'center',
             alignItems: 'center',
           }}>
@@ -56,14 +56,14 @@ return (
         style={{
           flex: 6,
           flexDirection: 'row',
-          backgroundColor: '#00B3CC',
+          backgroundColor: '#add8e6',
           alignItems: 'center',
         }}>
         <View
           style={{
             flex: 1,
             flexDirection: 'column',
-            backgroundColor: '#00B3CC',
+            backgroundColor: '#add8e6',
             justifyContent: 'center',
             alignItems: 'center',
           }}>
@@ -80,7 +80,7 @@ return (
           style={{
             flex: 1,
             flexDirection: 'column',
-            backgroundColor: '#00B3CC',
+            backgroundColor: '#add8e6',
             justifyContent: 'center',
             alignItems: 'center',
           }}>
@@ -99,7 +99,7 @@ return (
         <View
           style={{
             flex: 1,
-            backgroundColor: '#00B3CC',
+            backgroundColor: '#add8e6',
             justifyContent: 'center',
           }}>
           <Button
@@ -110,7 +110,7 @@ return (
         <View
           style={{
             flex: 1,
-            backgroundColor: '#00B3CC',
+            backgroundColor: '#add8e6',
             justifyContent: 'center',
           }}>
           <Button
