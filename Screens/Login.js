@@ -11,6 +11,7 @@ export default function Login(props){
 
   const { navigation } = props
     return (
+    
         <View style={styles.container}>
           <TextInput
             style={styles.input}
@@ -28,7 +29,7 @@ export default function Login(props){
             // onChangeText={val => this.onChangeText('password', val)}
           />
           <Button title="Sign In" onPress={() => navigation.navigate('TodoHome')} />
-        </View>
+      </View>
       )
 }
 
