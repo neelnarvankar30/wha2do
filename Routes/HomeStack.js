@@ -13,7 +13,7 @@ export default function HomeStack(){
     return (
 
         <NavigationContainer>
-          <Stack.Navigator>
+          <Stack.Navigator headerMode="none">
             <Stack.Screen name='Home' component={Home} />
             <Stack.Screen name='AboutUs' component={AboutUs} />
             <Stack.Screen name='Info' component={Info} />
