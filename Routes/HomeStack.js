@@ -16,13 +16,13 @@ export default function HomeStack(){
 
         <NavigationContainer>
           <Stack.Navigator headerMode = 'none'>
+          <Stack.Screen name='TodoHome' component={TodoHome} />
           <Stack.Screen name='Add New List' component={AddNewList} />
             <Stack.Screen name='Home' component={Home} />
             <Stack.Screen name='AboutUs' component={AboutUs} />
             <Stack.Screen name='Info' component={Info} />
             <Stack.Screen name='Login' component={Login} />
             <Stack.Screen name='SignUp' component={SignUp} />
-            <Stack.Screen name='TodoHome' component={TodoHome} />
           </Stack.Navigator>
         </NavigationContainer>
 

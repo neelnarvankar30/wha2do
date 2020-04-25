@@ -8,10 +8,9 @@ import {RectButton, ScrollView} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function Login(props){
-
+  const [modalVisible, setModalVisible] = useState(false);
   const { navigation } = props
-    return (
-    
+    return (  
         <View style={styles.container}>
           <TextInput
             style={styles.input}
