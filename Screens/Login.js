@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-paper';
 
 export default function Login(props){
-  const [modalVisible, setModalVisible] = useState(false);
+  //const [modalVisible, setModalVisible] = useState(false);
   const { navigation } = props
     return (  
         <View style={styles.container}>

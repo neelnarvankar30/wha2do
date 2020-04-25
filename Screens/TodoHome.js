@@ -1,6 +1,10 @@
 import React, { Component, useState } from 'react';
 import { View, Image, Text, TextInput, ToastAndroid, Button, TouchableHighlight, TouchableOpacity, StyleSheet, Linking, Modal } from 'react-native';
 import { CheckBox } from "react-native-elements";
+import { FloatingAction } from "react-native-floating-action";
+
+
+
 export default function TodoHome() {
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -53,8 +57,12 @@ export default function TodoHome() {
 
             </View>
 
-            <View style={{ flex: 1, backgroundColor: '#add8e6' }}>
+            <View style={{ flex: 1,flexDirection:'row', backgroundColor: '#add8e6', justifyContent:'flex-end' }}>
+            <Image
+                        source={require('./Plus.png')}
+                        style={{ width: 50, height: 50, shadowColor: 'white' }}
 
+                    />
             </View>
 
             <Modal
