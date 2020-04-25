@@ -23,7 +23,7 @@ return(
 
     <View style = {{flex:2, backgroundColor: '#add8e6', alignItems: "center"}}>
 
-     <Image
+        <Image
             source={require('./add-icon.png')}
             style={{width: 50, height: 50, shadowColor: 'white'}}
           />

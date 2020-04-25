@@ -1,11 +1,12 @@
 import 'react-native-gesture-handler';
 import React, {Component} from 'react';
-import {View,Image,Text,TextInput,Button,TouchableHighlight,StyleSheet,Linking,} from 'react-native';
-import {FormLabel,FormInput,FormValidationMessage,} from 'react-native-elements';
+import {View,Image,Text,TextInput,TouchableHighlight,StyleSheet,Linking,} from 'react-native';
+import {FormLabel,FormInput,FormValidationMessage, ThemeConsumer,} from 'react-native-elements';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {RectButton, ScrollView} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Button } from 'react-native-paper';
 
 export default function Home(props){
     const { navigation } = props
@@ -34,10 +35,7 @@ return (
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Image
-            source={require('./logo.png')}
-            style={{width: 100, height: 100, shadowColor: 'white'}}
-          />
+          
         </View>
 
         <View
@@ -48,50 +46,34 @@ return (
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text style={{fontStyle: 'italic', fontSize: 50}}>wha2do</Text>
+          
         </View>
       </View>
 
       <View
         style={{
           flex: 6,
-          flexDirection: 'row',
+          flexDirection: 'column',
           backgroundColor: '#add8e6',
           alignItems: 'center',
         }}>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'column',
-            backgroundColor: '#add8e6',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <TouchableHighlight onPress={() => navigation.navigate('Login')}>
-            <Image
-              source={require('./signup.png')}
-              style={{width: 80, height: 80}}
-            />
-          </TouchableHighlight>
-          <Text>Sign in</Text>
-        </View>
 
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'column',
-            backgroundColor: '#add8e6',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <TouchableHighlight onPress={() => navigation.navigate('SignUp')}>
-            <Image
-              source={require('./signin.png')}
-              style={{width: 80, height: 80}}
-            />
-          </TouchableHighlight>
-          <Text>Register</Text>
-        </View>
+        <Image
+            source={require('./logo.png')}
+            style={{width: 120, height: 120, shadowColor: 'white', padding:20}}
+          />
+
+        <Text style={{padding:20, paddingBottom:25, fontSize:50,fontStyle:'italic'}}>wha2do</Text>
+        <Button mode="contained" color='white' width="60%" onPress={() => navigation.navigate('Login')}>Login</Button>
+        <Text> </Text>
+        <Button
+        contentStyle={{}} 
+         mode='outlined'
+        color='black' 
+        width="60%" 
+        onPress={() => navigation.navigate('SignUp')}>
+        Sign-Up
+        </Button>       
       </View>
 
       <View
@@ -103,9 +85,11 @@ return (
             justifyContent: 'center',
           }}>
           <Button
-            onPress={() => navigation.navigate('TodoHome')}
-            title="INFO"
-          />
+            onPress={() => navigation.navigate('AboutUs')}
+            color='black'
+            >
+            Info
+          </Button>
         </View>
         <View
           style={{
@@ -115,8 +99,9 @@ return (
           }}>
           <Button
             onPress={() => navigation.navigate('AboutUs')}
-            title="About Us"
-          />
+            color='black'>
+            About Us
+          </Button>
         </View>
       </View>
     </View>
