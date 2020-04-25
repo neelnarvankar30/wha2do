@@ -9,13 +9,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-paper';
 
 export default function Login(props){
-    const { navigation } = props
-
-    return (
-      
-      
-      
-      
+  const [modalVisible, setModalVisible] = useState(false);
+  const { navigation } = props
+    return (  
         <View style={styles.container}>
          <Image
             source={require('./logo.png')}

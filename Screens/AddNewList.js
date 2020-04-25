@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
-import React, { Component } from 'react';
-import { View, Image, Text, TextInput, Button, TouchableHighlight, StyleSheet, Linking, } from 'react-native';
+import React, { Component, useState } from 'react';
+import { View, Image, Text, TextInput, Button, TouchableHighlight, StyleSheet, Linking, Modal } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, CheckBox } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -8,6 +8,8 @@ import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function AddNewList(props) {
+
+    const [modalVisible, setModalVisible] = useState(false);
 
     const { navigation } = props
     return (
@@ -21,7 +23,7 @@ export default function AddNewList(props) {
             />
             <CheckBox style={styles.checkbox}
                 title='Enable Notifications'
-                // checked={this.state.checked}
+            // checked={this.state.checked}
             />
             <Button title="Add New List" onPress={() => navigation.navigate('TodoHome')} />
         </View>
@@ -29,9 +31,9 @@ export default function AddNewList(props) {
 }
 
 const styles = StyleSheet.create({
-checkbox:{
-    backgroundColor: '#add8e6'
-},
+    checkbox: {
+        backgroundColor: '#add8e6'
+    },
     input: {
         width: 350,
         height: 55,
