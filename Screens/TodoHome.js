@@ -4,8 +4,10 @@ import { CheckBox } from "react-native-elements";
 import { FAB } from 'react-native-paper';
 
 
-export default function TodoHome() {
-
+export default function TodoHome({route, navigation}) {
+    const { itemId } = route.params;
+    const { otherParam } = route.params;
+    const { UName } = route.params;
     const [modalVisible, setModalVisible] = useState(false);
 
     const showToast = () => {
@@ -49,7 +51,8 @@ export default function TodoHome() {
                 </TouchableOpacity> */}
 
 
-                <Text>Add New List </Text>
+                
+                <Text>Welcome {(UName)}</Text>
             </View>
 
             <View style={{ flex: 4, backgroundColor: '#add8e6', alignItems: "center" }}>

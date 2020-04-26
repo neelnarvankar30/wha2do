@@ -1,15 +1,15 @@
 import 'react-native-gesture-handler';
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {View,Image,Text,TextInput,TouchableHighlight,StyleSheet,Linking,} from 'react-native';
 import {FormLabel,FormInput,FormValidationMessage,} from 'react-native-elements';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {RectButton, ScrollView} from 'react-native-gesture-handler';
+import {RectButton, ScrollView, FlatList} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-paper';
 
 export default function Login(props){
-  //const [modalVisible, setModalVisible] = useState(false);
+  const [username, setUsername] = useState('');
   const { navigation } = props
     return (  
         <View style={styles.container}>
@@ -25,7 +25,7 @@ export default function Login(props){
             placeholder="Username"
             autoCapitalize="none"
             placeholderTextColor="black"
-            // onChangeText={val => this.onChangeText('username', val)}
+            onChangeText={username => setUsername(username)}
           />
           <TextInput
             style={styles.input}
@@ -35,8 +35,12 @@ export default function Login(props){
             placeholderTextColor="black"
             // onChangeText={val => this.onChangeText('password', val)}
           />
+       
+
           <Button 
-          onPress={() => navigation.navigate('TodoHome')}
+          onPress={() =>
+           {console.log(username)
+           navigation.navigate('TodoHome', {UName: username});}}
           mode='outlined'
           color='black'>
           Log In
