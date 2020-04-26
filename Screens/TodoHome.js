@@ -1,8 +1,7 @@
 import React, { Component, useState } from 'react';
 import { View, Image, Text, TextInput, ToastAndroid, Button, TouchableHighlight, TouchableOpacity, StyleSheet, Linking, Modal } from 'react-native';
 import { CheckBox } from "react-native-elements";
-import { FloatingAction } from "react-native-floating-action";
-
+import { FAB } from 'react-native-paper';
 
 
 export default function TodoHome() {
@@ -17,28 +16,28 @@ export default function TodoHome() {
 
         <View style={{ flex: 1, flexDirection: 'column' }}>
             <View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#add8e6', padding: 25 }}>
-            <View style = {{flex: 2, flexDirection:'column', backgroundColor:'#add8e6',  justifyContent: "center"}}>
-            <View style ={{flex: 1, backgroundColor:'#add8e6', borderBottomWidth:2}}>
-            </View>
-            <View style ={{flex: 1, backgroundColor:'#add8e6'}}>
-            </View>
-        </View>
+                <View style={{ flex: 2, flexDirection: 'column', backgroundColor: '#add8e6', justifyContent: "center" }}>
+                    <View style={{ flex: 1, backgroundColor: '#add8e6', borderBottomWidth: 2 }}>
+                    </View>
+                    <View style={{ flex: 1, backgroundColor: '#add8e6' }}>
+                    </View>
+                </View>
 
                 <View style={{ flex: 3, backgroundColor: '#add8e6', justifyContent: "center", alignItems: "center" }}>
                     <Text style={{ fontStyle: 'italic', fontSize: 25 }}>Todo Lists</Text>
                 </View>
 
-                <View style = {{flex: 2, flexDirection:'column', backgroundColor:'#add8e6',  justifyContent: "center"}}>
-            <View style ={{flex: 1, backgroundColor:'#add8e6', borderBottomWidth:2}}>
-            </View>
-            <View style ={{flex: 1, backgroundColor:'#add8e6'}}>
-            </View>
-        </View>
+                <View style={{ flex: 2, flexDirection: 'column', backgroundColor: '#add8e6', justifyContent: "center" }}>
+                    <View style={{ flex: 1, backgroundColor: '#add8e6', borderBottomWidth: 2 }}>
+                    </View>
+                    <View style={{ flex: 1, backgroundColor: '#add8e6' }}>
+                    </View>
+                </View>
             </View>
 
             <View style={{ flex: 2, backgroundColor: '#add8e6', alignItems: "center" }}>
 
-                <TouchableOpacity onPress={() => {
+                {/* <TouchableOpacity onPress={() => {
                     console.log("hello");
                     setModalVisible(true);
                 }}>
@@ -47,7 +46,7 @@ export default function TodoHome() {
                         style={{ width: 50, height: 50, shadowColor: 'white' }}
 
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
 
                 <Text>Add New List </Text>
@@ -57,12 +56,17 @@ export default function TodoHome() {
 
             </View>
 
-            <View style={{ flex: 1,flexDirection:'row', backgroundColor: '#add8e6', justifyContent:'flex-end' }}>
-            <Image
-                        source={require('./Plus.png')}
-                        style={{ width: 50, height: 50, shadowColor: 'white' }}
+            <View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#add8e6', justifyContent: 'flex-end' }}>
+                <FAB
+                    style={styles.fab}
+                    icon="plus"
+                    onPress={() => {
+                        console.log("hello");
+                        setModalVisible(true);
+                    }}
+                    color="white"
+                />
 
-                    />
             </View>
 
             <Modal
@@ -121,6 +125,13 @@ export default function TodoHome() {
 };
 
 const styles = StyleSheet.create({
+    fab: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
+        backgroundColor: '#4154FE'
+    },
     input: {
         width: 300,
         height: 55,
@@ -129,7 +140,7 @@ const styles = StyleSheet.create({
         borderRadius: 14,
         fontSize: 18,
         fontWeight: '500',
-    borderBottomWidth: 2 
+        borderBottomWidth: 2
     },
     centeredView: {
         flex: 1,
