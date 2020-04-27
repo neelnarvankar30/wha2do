@@ -1,14 +1,19 @@
 import React, { Component, useState } from 'react';
-import { View, Image, Text, TextInput, ToastAndroid, Button, TouchableHighlight, TouchableOpacity, StyleSheet, Linking, Modal } from 'react-native';
+import { View, Image, Text, TextInput, ToastAndroid, TouchableHighlight, Button, TouchableOpacity, StyleSheet, Linking, Modal } from 'react-native';
 import { CheckBox } from "react-native-elements";
-import { FAB } from 'react-native-paper';
+import { FAB, Card, Title, Paragraph } from 'react-native-paper';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
-export default function TodoHome({route, navigation}) {
+export default function TodoHome({ route, navigation }) {
     const { itemId } = route.params;
     const { otherParam } = route.params;
     const { UName } = route.params;
     const [modalVisible, setModalVisible] = useState(false);
+
+
+    const listName = "Grocery";
+    const date = "30 Apr 20";
 
     const showToast = () => {
         ToastAndroid.show("New list created!", ToastAndroid.SHORT);
@@ -37,26 +42,122 @@ export default function TodoHome({route, navigation}) {
                 </View>
             </View>
 
-            <View style={{ flex: 2, backgroundColor: '#add8e6', alignItems: "center" }}>
+            <View style={{ flex: 1, backgroundColor: '#add8e6', alignItems: "center" }}>
 
-                {/* <TouchableOpacity onPress={() => {
-                    console.log("hello");
-                    setModalVisible(true);
-                }}>
-                    <Image
-                        source={require('./add-icon.png')}
-                        style={{ width: 50, height: 50, shadowColor: 'white' }}
-
-                    />
-                </TouchableOpacity> */}
-
-
-                
                 <Text>Welcome {(UName)}</Text>
             </View>
 
             <View style={{ flex: 4, backgroundColor: '#add8e6', alignItems: "center" }}>
+                <ScrollView horizontal={true}
+                    showsHorizontalScrollIndicator={false}>
 
+
+                    <Card style={{width: 200, margin: 20}}>
+                        <Card.Title title={listName} subtitle={"created on " + date} />
+                        <Card.Content>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                        </Card.Content>
+                    </Card>
+
+
+                    <Card style={{width: 200, margin: 20}}>
+                        <Card.Title title={listName} subtitle={"created on " + date} />
+                        <Card.Content>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                        </Card.Content>
+                    </Card>
+
+                    <Card style={{width: 200, margin: 20}}>
+                        <Card.Title title={listName} subtitle={"created on " + date} />
+                        <Card.Content>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                        </Card.Content>
+                    </Card>
+
+                    <Card style={{width: 200, margin: 20}}>
+                        <Card.Title title={listName} subtitle={"created on " + date} />
+                        <Card.Content>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                        </Card.Content>
+                    </Card>
+
+                    <Card style={{width: 200, margin: 20}}>
+                        <Card.Title title={listName} subtitle={"created on " + date} />
+                        <Card.Content>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                            <Text>Task</Text>
+                        </Card.Content>
+                    </Card>
+
+
+
+
+
+
+
+
+
+
+                    {/* <Card title="List Name"
+                        containerStyle={{ padding: 0, width: 200, alignItems: 'center' }}
+                        imageStyle={{ alignContent: 'center' }}>
+                        <Text> Task</Text>
+                        <Text> Task</Text>
+                        <Text> Task</Text>
+                    </Card>
+                    <Card title="List Name"
+                        containerStyle={{ padding: 0, width: 200, alignItems: 'center' }}
+                        imageStyle={{ alignContent: 'center' }}>
+                        <Text> Task</Text>
+                        <Text> Task</Text>
+                    </Card>
+                    <Card title="List Name"
+                        containerStyle={{ padding: 0, width: 200, alignItems: 'center' }}
+                        imageStyle={{ alignContent: 'center' }}>
+                        <Text> Task</Text>
+                        <Text> Task</Text>
+                        <Text> Task</Text>
+                        <Text> Task</Text>
+                    </Card>
+                    <Card title="List Name"
+                        containerStyle={{ padding: 0, width: 200, alignItems: 'center' }}
+                        imageStyle={{ alignContent: 'center' }}>
+                        <Text> Task</Text>
+                        <Text> Task</Text>
+                    </Card>
+                    <Card title="List Name"
+                        containerStyle={{ padding: 0, width: 200, alignItems: 'center' }}
+                        imageStyle={{ alignContent: 'center' }}>
+                        <Text> Task</Text>
+                        <Text> Task</Text>
+                    </Card>
+                    <Card title="List Name"
+                        containerStyle={{ padding: 0, width: 200, alignItems: 'center' }}
+                        imageStyle={{ alignContent: 'center' }}>
+                        <Text> Task</Text>
+                        <Text> Task</Text>
+                        <Text> Task</Text>
+                    </Card> */}
+                </ScrollView>
             </View>
 
             <View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#add8e6', justifyContent: 'flex-end' }}>
