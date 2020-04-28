@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, {Component, useState} from 'react';
-import {View,Image,Text,TextInput,Button,TouchableHighlight,StyleSheet,Linking,Modal,FlatList,TouchableWithoutFeedback,Keyboard, ToastAndroid} from 'react-native';
+import {View,Image,Text,Alert,TextInput,Button,TouchableHighlight,StyleSheet,Linking,Modal,FlatList,TouchableWithoutFeedback,Keyboard, ToastAndroid} from 'react-native';
 import {FormLabel,FormInput,FormValidationMessage,} from 'react-native-elements';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -23,6 +23,16 @@ export default function NewList(){
         );
       };
     
+      const cannotBeEmpty = () => {
+        ToastAndroid.showWithGravityAndOffset(
+          "Task name cannot be empty",
+          ToastAndroid.SHORT,
+          ToastAndroid.BOTTOM,
+          25,
+          50
+        );
+      };
+
       const [todos, setTodos] = useState([
         { text: 'buy coffee', key: '1' },
         { text: 'create an app', key: '2' },
@@ -44,9 +54,7 @@ export default function NewList(){
             ];
           });
         } else {
-          Alert.alert('OOPS', 'Todo must be over 3 characters long', [
-            {text: 'Understood', onPress: () => console.log('alert closed') }
-          ]);
+          cannotBeEmpty();
         }
       };
 
