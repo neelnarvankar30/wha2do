@@ -55,7 +55,7 @@ export default function SignUp() {
 
       <Formik
         initialValues={{ username: '', password: '', email: '', phone_number: '' }}
-        validationSchema={userSchema}
+        //validationSchema={userSchema}
         onSubmit={(values, actions) => {
           actions.resetForm();
           addUser(values);

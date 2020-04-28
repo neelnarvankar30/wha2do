@@ -1,12 +1,15 @@
 import 'react-native-gesture-handler';
 import React, {Component, useState} from 'react';
-import {View,Image,Text,TextInput,Button,TouchableHighlight,StyleSheet,Linking,Modal, ToastAndroid} from 'react-native';
+import {View,Image,Text,TextInput,Button,TouchableHighlight,StyleSheet,Linking,Modal,FlatList,TouchableWithoutFeedback,Keyboard, ToastAndroid} from 'react-native';
 import {FormLabel,FormInput,FormValidationMessage,} from 'react-native-elements';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {RectButton, ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import { CheckBox } from "react-native-elements";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { FAB } from 'react-native-paper';
+import TodoItem from './Components/todoItem';
+import AddTodo from './Components/addTodo';
 
 export default function NewList(){
     const [modalVisible, setModalVisible] = useState(false);
@@ -19,7 +22,42 @@ export default function NewList(){
           50
         );
       };
+    
+      const [todos, setTodos] = useState([
+        { text: 'buy coffee', key: '1' },
+        { text: 'create an app', key: '2' },
+        { text: 'play on the switch', key: '3' },
+      ]);
+    
+      const pressHandler = (key) => {
+        setTodos(prevTodos => {
+          return prevTodos.filter(todo => todo.key != key);
+        });
+      };
+    
+      const submitHandler = (text) => {
+        if(text.length > 3){
+          setTodos(prevTodos => {
+            return [
+              { text, key: Math.random().toString() },
+              ...prevTodos
+            ];
+          });
+        } else {
+          Alert.alert('OOPS', 'Todo must be over 3 characters long', [
+            {text: 'Understood', onPress: () => console.log('alert closed') }
+          ]);
+        }
+      };
+
+
+
+
     return(
+        <TouchableWithoutFeedback onPress={() => {
+            Keyboard.dismiss();
+            console.log('dismissed');
+          }}>
         <View style ={{flex: 1 , flexDirection:'column'}}>
     <View style= {{flex: 1, flexDirection: 'row', backgroundColor: '#add8e6', padding: 25}}>
         
@@ -43,31 +81,36 @@ export default function NewList(){
 
     </View>
 
-    <View style = {{flex:2, backgroundColor: '#add8e6', alignItems: "center"}}>
-
-    </View>
 
     <View style = {{flex:4, backgroundColor: '#add8e6', alignItems: "center"}}>
+    
+        <View style={styles.content}>
+          <AddTodo submitHandler={submitHandler} />
+          <View style={styles.list}>
+            <FlatList
+              data={todos}
+              renderItem={({ item }) => (
+                <TodoItem item={item} pressHandler={pressHandler} />
+              )}
+            />
+          </View>
+        </View>
         
     </View>
 
     <View style = {{flex:1,flexDirection:'row', backgroundColor: '#add8e6'}}>
-        <View style = {{flex:1, backgroundColor:'#add8e6', alignItems: 'flex-end',justifyContent: "center", padding:10}}>
-        <TouchableOpacity onPress={() => {
-                    console.log("hello");
-                    setModalVisible(true);
-                }}><Image
-            source={require('./add-icon.png')}
-            style={{width: 50, height: 50, shadowColor: 'white'}}
-          />
-          </TouchableOpacity>
-        </View>
+       
 
-        <View style = {{flex:1, backgroundColor:'#add8e6',alignItems: 'flex-start',justifyContent: "center", padding:10}}>
-            <Image 
-            source={require('./home.png')}
-            style={{width: 50, height: 50, shadowColor: 'white'}}
-            />
+        <View style = {{flex:1, backgroundColor:'#add8e6',alignItems: 'flex-end',justifyContent: "center", padding:10}}>
+        <FAB
+                    style={styles.fab}
+                    icon="plus"
+                    onPress={() => {
+                        console.log("hello");
+                        setModalVisible(true);
+                    }}
+                    color="white"
+                />
         </View>
     </View>
     <Modal
@@ -131,10 +174,24 @@ export default function NewList(){
 
 
 </View>
+ </TouchableWithoutFeedback>
 )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+      },
+      content: {
+        padding: 40,
+        flex: 1,
+      },
+      list: {
+        marginTop: 20,
+        flex: 1,
+      },
+    
     input: {
             width:250,
             borderBottomWidth:2,
