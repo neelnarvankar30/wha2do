@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, {Component, useState} from 'react';
-import {View,Image,Text,Alert,TextInput,Button,TouchableHighlight,StyleSheet,Linking,Modal,FlatList,TouchableWithoutFeedback,Keyboard, ToastAndroid} from 'react-native';
+import {View,Image,Text,Alert,TextInput,Button,TouchableHighlight,StyleSheet,Linking,Modal,FlatList,TouchableWithoutFeedback,Keyboard, ToastAndroid, RecyclerViewBackedScrollView} from 'react-native';
 import {FormLabel,FormInput,FormValidationMessage,} from 'react-native-elements';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { FAB } from 'react-native-paper';
 import TodoItem from './Components/todoItem';
 import AddTodo from './Components/addTodo';
+import NewListForm from './Components/NewListForm'
 
 export default function NewList(){
     const [modalVisible, setModalVisible] = useState(false);
@@ -34,10 +35,18 @@ export default function NewList(){
       };
 
       const [todos, setTodos] = useState([
-        { text: 'buy coffee', key: '1' },
-        { text: 'create an app', key: '2' },
-        { text: 'play on the switch', key: '3' },
+        { Name: 'buy coffee', key: '1' },
+        { Name: 'create an app', key: '2' },
+        { Name: 'play on the switch', key: '3' },
       ]);
+
+      const addTodo =(Todo) => {
+        Todo.key = Math.random().toString();
+        setTodos((currentTodos) => {
+          return[Todo, ...currentTodos];
+        })
+        setModalVisible(false);
+      }
     
       const pressHandler = (key) => {
         setTodos(prevTodos => {
@@ -67,13 +76,13 @@ export default function NewList(){
             console.log('dismissed');
           }}>
         <View style ={{flex: 1 , flexDirection:'column'}}>
-    <View style= {{flex: 1, flexDirection: 'row', backgroundColor: '#add8e6', padding: 25}}>
+          <View style= {{flex: 1, flexDirection: 'row', backgroundColor: '#add8e6', padding: 25}}>
         
-        <View style = {{flex: 2, flexDirection:'column', backgroundColor:'#add8e6',  justifyContent: "center"}}>
-            <View style ={{flex: 1, backgroundColor:'#add8e6', borderBottomWidth:2}}>
-            </View>
-            <View style ={{flex: 1, backgroundColor:'#add8e6'}}>
-            </View>
+              <View style = {{flex: 2, flexDirection:'column', backgroundColor:'#add8e6',  justifyContent: "center"}}>
+                <View style ={{flex: 1, backgroundColor:'#add8e6', borderBottomWidth:2}}>
+                </View>
+              <View style ={{flex: 1, backgroundColor:'#add8e6'}}>
+          </View>
         </View>
 
         <View style = {{flex: 3, backgroundColor:'#add8e6', justifyContent: "center", alignItems: "center"}}>
@@ -81,30 +90,22 @@ export default function NewList(){
         </View>
 
         <View style = {{flex: 2,flexDirection:'column', backgroundColor:'#add8e6',  justifyContent: "center"}}>
-        <View style ={{flex: 1, backgroundColor:'#add8e6', borderBottomWidth:2}}>
+          <View style ={{flex: 1, backgroundColor:'#add8e6', borderBottomWidth:2}}>
             </View>
-            <View style ={{flex: 1, backgroundColor:'#add8e6'}}>
-            </View>
-        </View>
-
-    </View>
-
-
-    <View style = {{flex:4, backgroundColor: '#add8e6', alignItems: "center"}}>
-    
-        <View style={styles.content}>
-          <AddTodo submitHandler={submitHandler} />
-          <View style={styles.list}>
-            <FlatList
-              data={todos}
-              renderItem={({ item }) => (
-                <TodoItem item={item} pressHandler={pressHandler} />
-              )}
-            />
+              <View style ={{flex: 1, backgroundColor:'#add8e6'}}>
+              </View>
           </View>
+
         </View>
-        
-    </View>
+
+
+        <View style = {{flex:4, backgroundColor: '#add8e6', alignItems: "center"}}>
+       
+          <FlatList data={todos} renderItem={({ item }) => (
+            <Text>{ item.Name }</Text>
+      )} />
+
+        </View>
 
     <View style = {{flex:1,flexDirection:'row', backgroundColor: '#add8e6'}}>
        
@@ -121,62 +122,35 @@ export default function NewList(){
                 />
         </View>
     </View>
-    <Modal
+            <Modal
                 animationType="slide"
                 transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
+                  setModalVisible(!modalVisible);
                 }}
             >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text>Add Task</Text>
+            <NewListForm addTodo={addTodo} />
 
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Task Name"
-                            autoCapitalize="none"
-                            placeholderTextColor="black"
-                        // onChangeText={val => this.onChangeText('username', val)}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Time-Start"
-                            autoCapitalize="none"
-                            placeholderTextColor="black"
-                        // onChangeText={val => this.onChangeText('username', val)}
-                        />
-                        
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Time-End"
-                            autoCapitalize="none"
-                            placeholderTextColor="black"
-                    
-                        // onChangeText={val => this.onChangeText('username', val)}
-                        />
+            <View>
+            {/* <TouchableHighlight
+                    style={{ ...styles.openButton, backgroundColor: "#2196F3", top:-90, width:200, left:80 }}
+                    onPress={() => {
+                        showToastWithGravityAndOffset();
+                        setModalVisible(!modalVisible);
+                    }}
+                >
+                    <Text style={styles.textStyle}>ADD</Text>
+                </TouchableHighlight>
 
-                        <TouchableHighlight
-                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                            onPress={() => {
-                                showToastWithGravityAndOffset();
-                                setModalVisible(!modalVisible);
-                            }}
-                        >
-                            <Text style={styles.textStyle}>OK</Text>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight
-                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                            onPress={() => {
-                                setModalVisible(!modalVisible);
-                            }}
-                        >
-                            <Text style={styles.textStyle}>Cancel</Text>
-                        </TouchableHighlight>
-                        
-                    </View>
+                <TouchableHighlight
+                    style={{ ...styles.openButton, backgroundColor: "#2196F3", top:-80, width:200, left:80 }}
+                    onPress={() => {
+                        setModalVisible(!modalVisible);
+                    }}
+                >
+                    <Text style={styles.textStyle}>Cancel</Text>
+                </TouchableHighlight> */}
                 </View>
             </Modal>
 
