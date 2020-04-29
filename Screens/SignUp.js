@@ -8,12 +8,34 @@ import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import database from '@react-native-firebase/database';
+import firebase from '@react-native-firebase/app';
+// import { db } from '../src/config';
+import * as Firebase from '../src/firebaseAPI';
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBTMUIY1tvkv0770bwFOg4WpbyLzbJ3PCU",
+//   authDomain: "wha2do-swe632.firebaseapp.com",
+//   databaseURL: "https://wha2do-swe632.firebaseio.com",
+//   projectId: "wha2do-swe632",
+//   storageBucket: "wha2do-swe632.appspot.com",
+//   messagingSenderId: "353111282999",
+//   appId: "1:353111282999:web:c065ff801730236cb3f6b2",
+//   measurementId: "G-953M0RZXHY"
+// };
+
+// if (!firebase.apps.length)
+// {
+//   const app = firebase.initializeApp(firebaseConfig);
+// }
+
+//   const db = firebase.database();
 
 const userSchema = yup.object({
   username: yup.string().required("Username required").min(5),
   password: yup.string().required("Password required").min(8).max(16).matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-  "Must Contain atleast 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-),
+    "Must Contain atleast 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+  ),
   email: yup.string().email("Not a valid email address").required("Email is required"),
   phone_number: yup.string().required("Phone number is required").min(10, "Phone number must be 10 digits long")
 })
@@ -49,6 +71,7 @@ export default function SignUp() {
     setUsers((currentUsers) => {
       return [user, ...currentUsers]
     });
+
     console.log(users);
   }
 
@@ -62,11 +85,11 @@ export default function SignUp() {
           actions.resetForm();
           addUser(values);
           // maybe write the logic to add the data into firebase over here
-
+          Firebase.createUser(values.email, values.password);
           // so currently, I am able to add new users inside the users json array (declared on line 36)
           // hopefully we're able to send this data to firebase as well
 
-          console.log(values);
+          // console.log(values);
         }}
       >
         {(props) => (
