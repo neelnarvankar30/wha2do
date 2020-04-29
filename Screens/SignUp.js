@@ -10,10 +10,12 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 
 const userSchema = yup.object({
-  username: yup.string().required().min(5),
-  password: yup.string().required().min(8).max(16).matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/),
-  email: yup.string().email().required(),
-  phone_number: yup.string().required().min(10).max(10)
+  username: yup.string().required("Username required").min(5),
+  password: yup.string().required("Password required").min(8).max(16).matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+  "Must Contain atleast 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+),
+  email: yup.string().email("Not a valid email address").required("Email is required"),
+  phone_number: yup.string().required("Phone number is required").min(10, "Phone number must be 10 digits long")
 })
 
 state = {
@@ -40,9 +42,9 @@ signUp = async () => {
 export default function SignUp() {
 
   const [users, setUsers] = useState([
-    {username: 'asdgh', password: 'lol', email: 'hsk@gmail.com', phone_number: '2341321'}
+    { username: 'asdgh', password: 'lol', email: 'hsk@gmail.com', phone_number: '2341321' }
   ]);
-  
+
   const addUser = (user) => {
     setUsers((currentUsers) => {
       return [user, ...currentUsers]
@@ -60,10 +62,10 @@ export default function SignUp() {
           actions.resetForm();
           addUser(values);
           // maybe write the logic to add the data into firebase over here
-          
+
           // so currently, I am able to add new users inside the users json array (declared on line 36)
           // hopefully we're able to send this data to firebase as well
-          
+
           console.log(values);
         }}
       >
@@ -73,33 +75,56 @@ export default function SignUp() {
               placeholder='Username'
               onChangeText={props.handleChange('username')}
               value={props.values.username}
+              onBlur={() => props.setFieldTouched('username')}
             >
 
             </TextInput>
+
+            {props.touched.username && props.errors.username &&
+              <Text style={{ fontSize: 10, color: 'red' }}>{props.errors.username}</Text>
+            }
 
             <TextInput
               placeholder='Password'
               onChangeText={props.handleChange('password')}
               value={props.values.password}
+              onBlur={() => props.setFieldTouched('password')}
 
             >
             </TextInput>
+
+            {props.touched.password && props.errors.password &&
+              <Text style={{ fontSize: 10, color: 'red' }}>{props.errors.password}</Text>
+            }
+
 
             <TextInput
               placeholder='Email'
               onChangeText={props.handleChange('email')}
               value={props.values.email}
               keyboardType='email-address'
+              onBlur={() => props.setFieldTouched('email')}
             >
             </TextInput>
+
+            {props.touched.email && props.errors.email &&
+              <Text style={{ fontSize: 10, color: 'red' }}>{props.errors.email}</Text>
+            }
 
             <TextInput
               placeholder='Phone Number (10 digits)'
               onChangeText={props.handleChange('phone_number')}
               value={props.values.phone_number}
               keyboardType='phone-pad'
+              onBlur={() => props.setFieldTouched('phone_number')}
+              maxLength={10}
             >
             </TextInput>
+
+            {props.touched.phone_number && props.errors.phone_number &&
+              <Text style={{ fontSize: 10, color: 'red' }}>{props.errors.phone_number}</Text>
+            }
+
 
             <Button title='submit' color='maroon' onPress={props.handleSubmit}></Button>
 
