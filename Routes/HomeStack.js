@@ -16,7 +16,7 @@ export default function HomeStack(){
         <NavigationContainer>
           <Stack.Navigator headerMode = 'none'>
           <Stack.Screen name='Home' component={Home} />
-          <Stack.Screen name='Add New List' component={NewList} />
+          <Stack.Screen name='NewList' component={NewList} />
           <Stack.Screen name='TodoHome' component={TodoHome} />
             <Stack.Screen name='AboutUs' component={AboutUs} />
             <Stack.Screen name='Info' component={Info} />

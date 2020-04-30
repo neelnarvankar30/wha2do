@@ -11,8 +11,12 @@ import { FAB } from 'react-native-paper';
 import TodoItem from './Components/todoItem';
 import AddTodo from './Components/addTodo';
 import NewListForm from './Components/NewListForm'
+import Card from './Components/card';
 
-export default function NewList(){
+export default function NewList({route, navigation}){
+
+    const {LName} = route.params;
+
     const [modalVisible, setModalVisible] = useState(false);
     const showToastWithGravityAndOffset = () => {
         ToastAndroid.showWithGravityAndOffset(
@@ -71,10 +75,10 @@ export default function NewList(){
 
 
     return(
-        <TouchableWithoutFeedback onPress={() => {
-            Keyboard.dismiss();
-            console.log('dismissed');
-          }}>
+        // <TouchableWithoutFeedback onPress={() => {
+        //     Keyboard.dismiss();
+        //     console.log('dismissed');
+        //   }}>
         <View style ={{flex: 1 , flexDirection:'column'}}>
           <View style= {{flex: 1, flexDirection: 'row', backgroundColor: '#add8e6', padding: 25}}>
         
@@ -86,7 +90,7 @@ export default function NewList(){
         </View>
 
         <View style = {{flex: 3, backgroundColor:'#add8e6', justifyContent: "center", alignItems: "center"}}>
-            <Text style={{fontStyle: 'italic',fontSize: 25 }}>List Name</Text>
+            <Text style={{fontStyle: 'italic',fontSize: 25 }}>{(LName)}</Text>
         </View>
 
         <View style = {{flex: 2,flexDirection:'column', backgroundColor:'#add8e6',  justifyContent: "center"}}>
@@ -101,8 +105,12 @@ export default function NewList(){
 
         <View style = {{flex:4, backgroundColor: '#add8e6', alignItems: "center"}}>
        
-          <FlatList data={todos} renderItem={({ item }) => (
-            <Text>{ item.Name }</Text>
+          <FlatList   showsVerticalScrollIndicator={false} style={{width:300}} data={todos} renderItem={({ item }) => (
+           <Card>
+           
+            <Text style={{...styles.textTitle}}>{ item.Name }</Text>
+            </Card>
+        
       )} />
 
         </View>
@@ -133,6 +141,8 @@ export default function NewList(){
             <NewListForm addTodo={addTodo} />
 
             <View>
+            </View>
+            </Modal>
             {/* <TouchableHighlight
                     style={{ ...styles.openButton, backgroundColor: "#2196F3", top:-90, width:200, left:80 }}
                     onPress={() => {
@@ -151,17 +161,21 @@ export default function NewList(){
                 >
                     <Text style={styles.textStyle}>Cancel</Text>
                 </TouchableHighlight> */}
-                </View>
-            </Modal>
+                
 
 
 </View>
- </TouchableWithoutFeedback>
+ //</TouchableWithoutFeedback>
 )
 }
 
 const styles = StyleSheet.create({
-    container: {
+  textTitle:{
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+  }, 
+  container: {
         flex: 1,
         backgroundColor: '#fff',
       },
