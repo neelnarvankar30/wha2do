@@ -1,16 +1,32 @@
 import React, { Component, useState } from 'react';
-import { View, Image, Text, TextInput, ToastAndroid, TouchableHighlight, Button, TouchableOpacity, StyleSheet, Linking, Modal } from 'react-native';
+import { View, FlatList, Image, Text, TextInput, ToastAndroid, TouchableHighlight, Button, TouchableOpacity, StyleSheet, Linking, Modal } from 'react-native';
 import { CheckBox } from "react-native-elements";
-import { FAB, Card, Title, Paragraph } from 'react-native-paper';
+import { FAB,CardActions, Title, Paragraph } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
-
+import TodoForm from './Components/TodoForm'
+import Card from './Components/card'   
 
 export default function TodoHome({ route, navigation }) {
     const { itemId } = route.params;
     const { otherParam } = route.params;
     const { UName } = route.params;
+   // const [lname, setlname] = useState('');
+    
     const [modalVisible, setModalVisible] = useState(false);
 
+    const [list, setlist] = useState([
+        { Name: 'Grocery', key: '1' },
+        { Name: 'Gym', key: '2' },
+        { Name: 'Home', key: '3' },
+      ]);
+
+      const addList =(list) => {
+        list.key = Math.random().toString();
+        setlist((currentlist) => {
+          return[list, ...currentlist];
+        })
+        setModalVisible(false);
+      }
 
     const listName = "Grocery";
     const date = "30 Apr 20";
@@ -47,12 +63,23 @@ export default function TodoHome({ route, navigation }) {
                 <Text>Welcome {(UName)}</Text>
             </View>
 
+            
+
             <View style={{ flex: 4, backgroundColor: '#add8e6', alignItems: "center" }}>
-                <ScrollView horizontal={true}
+            <FlatList  showsHorizontalScrollIndicator={false} horizontal={true} style={{width:350}} data={list} renderItem={({ item }) => (
+            <TouchableOpacity style={{height:200}}   onPress={() => navigation.navigate('NewList',{LName: item.Name})}>
+           <Card>
+            <Text style={{width: 200, margin: 20, height:200}}>{ item.Name }</Text>
+            </Card>
+            </TouchableOpacity>
+                )} />
+                {/* <ScrollView horizontal={true}
                     showsHorizontalScrollIndicator={false}>
 
-
-                    <Card style={{width: 200, margin: 20}}>
+                    
+                    <Card
+                    onPress={() => navigation.navigate('NewList',{LName: listName})}
+                     style={{width: 200, margin: 20}}>
                         <Card.Title title={listName} subtitle={"created on " + date} />
                         <Card.Content>
                             <Text>Task</Text>
@@ -109,55 +136,7 @@ export default function TodoHome({ route, navigation }) {
                     </Card>
 
 
-
-
-
-
-
-
-
-
-                    {/* <Card title="List Name"
-                        containerStyle={{ padding: 0, width: 200, alignItems: 'center' }}
-                        imageStyle={{ alignContent: 'center' }}>
-                        <Text> Task</Text>
-                        <Text> Task</Text>
-                        <Text> Task</Text>
-                    </Card>
-                    <Card title="List Name"
-                        containerStyle={{ padding: 0, width: 200, alignItems: 'center' }}
-                        imageStyle={{ alignContent: 'center' }}>
-                        <Text> Task</Text>
-                        <Text> Task</Text>
-                    </Card>
-                    <Card title="List Name"
-                        containerStyle={{ padding: 0, width: 200, alignItems: 'center' }}
-                        imageStyle={{ alignContent: 'center' }}>
-                        <Text> Task</Text>
-                        <Text> Task</Text>
-                        <Text> Task</Text>
-                        <Text> Task</Text>
-                    </Card>
-                    <Card title="List Name"
-                        containerStyle={{ padding: 0, width: 200, alignItems: 'center' }}
-                        imageStyle={{ alignContent: 'center' }}>
-                        <Text> Task</Text>
-                        <Text> Task</Text>
-                    </Card>
-                    <Card title="List Name"
-                        containerStyle={{ padding: 0, width: 200, alignItems: 'center' }}
-                        imageStyle={{ alignContent: 'center' }}>
-                        <Text> Task</Text>
-                        <Text> Task</Text>
-                    </Card>
-                    <Card title="List Name"
-                        containerStyle={{ padding: 0, width: 200, alignItems: 'center' }}
-                        imageStyle={{ alignContent: 'center' }}>
-                        <Text> Task</Text>
-                        <Text> Task</Text>
-                        <Text> Task</Text>
-                    </Card> */}
-                </ScrollView>
+            </ScrollView> */}
             </View>
 
             <View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#add8e6', justifyContent: 'flex-end' }}>
@@ -181,46 +160,10 @@ export default function TodoHome({ route, navigation }) {
                     Alert.alert("Modal has been closed.");
                 }}
             >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text>Add List</Text>
 
-                        <TextInput
-                            style={styles.input}
-                            placeholder="List Name"
-                            autoCapitalize="none"
-                            placeholderTextColor="black"
-                        // onChangeText={val => this.onChangeText('username', val)}
-                        />
-                        <CheckBox style={styles.checkbox}
-                            title='Enable Notifications'
-                        // checked={this.state.checked}
-                        />
-
-                        <TouchableHighlight
-                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                            onPress={() => {
-                                console.log("New list created!");
-                                showToast();
-                                setModalVisible(!modalVisible);
-                            }}
-                        >
-                            <Text style={styles.textStyle}>OK</Text>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight
-                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                            onPress={() => {
-                                setModalVisible(!modalVisible);
-                            }}
-                        >
-                            <Text style={styles.textStyle}>Cancel</Text>
-                        </TouchableHighlight>
-
-                    </View>
-                </View>
+            <TodoForm  addList={addList} />
+                
             </Modal>
-
 
 
         </View>
