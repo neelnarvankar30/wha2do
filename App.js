@@ -25,9 +25,11 @@ import {RectButton, ScrollView} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 // import { Ionicons } from '@expo/vector-icons';
 // import * as WebBrowser from 'expo-web-browser';
-import Navigator from './Routes/HomeStack';
+// import Navigator from './Routes/HomeStack';
 import HomeStack from './Routes/HomeStack';
 import firebase from 'firebase';
+// import database from '@react-native-firebase/database';
+// import firebase from '@react-native-firebase/app';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBTMUIY1tvkv0770bwFOg4WpbyLzbJ3PCU",
@@ -41,6 +43,9 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
+// firebase.database().setPersistenceEnabled(true)
+// .then(() => console.log("realtime database persistence enabled"));
 
 export default function App(){
 

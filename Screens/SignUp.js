@@ -86,6 +86,7 @@ export default function SignUp() {
           addUser(values);
           // maybe write the logic to add the data into firebase over here
           Firebase.createUser(values.email, values.password);
+          Firebase.addTest(values.username, values.email, values.password, values.phone_number);
           // so currently, I am able to add new users inside the users json array (declared on line 36)
           // hopefully we're able to send this data to firebase as well
 
