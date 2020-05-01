@@ -36,7 +36,6 @@ export default function TodoHome({ route, navigation }) {
     };
 
     return (
-
         <View style={{ flex: 1, flexDirection: 'column' }}>
             <View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#add8e6', padding: 25 }}>
                 <View style={{ flex: 2, flexDirection: 'column', backgroundColor: '#add8e6', justifyContent: "center" }}>
@@ -67,7 +66,7 @@ export default function TodoHome({ route, navigation }) {
 
             <View style={{ flex: 4, backgroundColor: '#add8e6', alignItems: "center" }}>
             <FlatList  showsHorizontalScrollIndicator={false} horizontal={true} style={{width:350}} data={list} renderItem={({ item }) => (
-            <TouchableOpacity style={{height:200}}   onPress={() => navigation.navigate('NewList',{LName: item.Name})}>
+            <TouchableOpacity style={{height:200}}   onPress={() => navigation.navigate('NewList',{LName: item.Name, username: UName})}>
            <Card>
             <Text style={{width: 200, margin: 20, height:200}}>{ item.Name }</Text>
             </Card>

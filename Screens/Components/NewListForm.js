@@ -9,11 +9,9 @@ import { CheckBox } from "react-native-elements";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FAB } from 'react-native-paper';
 import {Formik} from 'formik';
+import { addTask } from '../../src/firebaseAPI';
 
 export default function NewListForm({addTodo}){
-    
-    
-    
     
     return(
 
@@ -24,6 +22,7 @@ export default function NewListForm({addTodo}){
                 initialValues={{Name: '' }}
                 onSubmit={(values) => {
                     addTodo(values);
+                    addTask(values.Name);
                     console.log(values);
                 }}
             >

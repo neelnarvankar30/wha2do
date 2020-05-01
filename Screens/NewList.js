@@ -12,10 +12,12 @@ import TodoItem from './Components/todoItem';
 import AddTodo from './Components/addTodo';
 import NewListForm from './Components/NewListForm'
 import Card from './Components/card';
+import { addTask } from '../src/firebaseAPI';
 
 export default function NewList({route, navigation}){
 
     const {LName} = route.params;
+    const {username} = route.params;
 
     const [modalVisible, setModalVisible] = useState(false);
     const showToastWithGravityAndOffset = () => {
@@ -49,6 +51,9 @@ export default function NewList({route, navigation}){
         setTodos((currentTodos) => {
           return[Todo, ...currentTodos];
         })
+        console.log("List name is ",LName);
+        console.log("User name is ",username);
+        addTask(Todo.Name, LName, username)
         setModalVisible(false);
       }
     
@@ -70,9 +75,6 @@ export default function NewList({route, navigation}){
           cannotBeEmpty();
         }
       };
-
-
-
 
     return(
         // <TouchableWithoutFeedback onPress={() => {
@@ -123,6 +125,7 @@ export default function NewList({route, navigation}){
                     style={styles.fab}
                     icon="plus"
                     onPress={() => {
+                        console.log("Route params are these bitchesssss: ",route.params)
                         console.log("hello");
                         setModalVisible(true);
                     }}
