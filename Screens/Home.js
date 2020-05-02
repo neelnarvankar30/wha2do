@@ -11,14 +11,7 @@ import { Button } from 'react-native-paper';
 export default function Home(props){
     const { navigation } = props
 return (
-    // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    //   <Text>Home Screen</Text>
-    //   <Button
-    //     title="Go to Details"
-    //     onPress={() => navigation.navigate('Details')}
-    //   />
-    // </View>
-
+    
     <View style={{flex: 1, flexDirection: 'column'}}>
       <View
         style={{
@@ -59,7 +52,7 @@ return (
         }}>
 
         <Image
-            source={require('./logo.png')}
+            source={require('./Icons/logo.png')}
             style={{width: 120, height: 120, shadowColor: 'white', padding:20}}
           />
 

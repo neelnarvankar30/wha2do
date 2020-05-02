@@ -14,7 +14,7 @@ export default function Login(props){
     return (  
         <View style={styles.container}>
          <Image
-            source={require('./logo.png')}
+            source={require('./Icons/logo.png')}
             style={{width: 120, height: 120, shadowColor: 'white', paddingBottom:30}}
           />
          <Text style={{fontSize:40, paddingBottom:10}}>Welcome.</Text>
@@ -40,7 +40,7 @@ export default function Login(props){
           <Button 
           onPress={() =>
            {console.log(username)
-           navigation.navigate('TodoHome', {UName: username});}}
+           navigation.navigate('TodoList', {UName: username});}}
           mode='outlined'
           color='black'>
           Log In

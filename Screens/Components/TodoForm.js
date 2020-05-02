@@ -43,28 +43,7 @@ const showToast = () => {
                         />
                         <CheckBox style={styles.checkbox}
                             title='Enable Notifications'
-                        // checked={this.state.checked}
                         />
-
-                        {/* <TouchableHighlight
-                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                            onPress={() => {
-                                console.log("New list created!");
-                                showToast();
-                                setModalVisible(!modalVisible);
-                            }}
-                        >
-                            <Text style={styles.textStyle}>OK</Text>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight
-                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                            onPress={() => {
-                                setModalVisible(!modalVisible);
-                            }}
-                        >
-                            <Text style={styles.textStyle}>Cancel</Text>
-                        </TouchableHighlight> */}
 
                         <Button title='Add' color='grey' onPress={props.handleSubmit} />
 
