@@ -7,8 +7,8 @@ import TodoForm from './Components/TodoForm'
 import Card from './Components/card'   
 
 export default function TodoList({ route, navigation }) {
-    const { itemId } = route.params;
-    const { otherParam } = route.params;
+    //const { itemId } = route.params;
+    //const { otherParam } = route.params;
     const { UName } = route.params;
    // const [lname, setlname] = useState('');
     
@@ -68,7 +68,7 @@ export default function TodoList({ route, navigation }) {
             <FlatList  showsHorizontalScrollIndicator={false} horizontal={true} style={{width:350}} data={list} renderItem={({ item }) => (
             <TouchableOpacity style={{height:200}}   onPress={() => navigation.navigate('NewTask',{LName: item.Name, username: UName})}>
            <Card>
-            <Text style={{width: 200, margin: 20, height:200}}>{ item.Name }</Text>
+            <Text style={{width: 200, margin: 20, height:200, top:90, left:50, fontSize:25}}>{ item.Name }</Text>
             </Card>
             </TouchableOpacity>
                 )} />

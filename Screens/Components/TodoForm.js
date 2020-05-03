@@ -10,10 +10,18 @@ export default function TodoForm({addList}){
 const [modalVisible, setModalVisible] = useState(false);
 
 const showToast = () => {
-        ToastAndroid.show("New list created!", ToastAndroid.SHORT);
+        ToastAndroid.show("New list created", ToastAndroid.SHORT);
     };
 
-
+    const cannotBeEmpty = () => {
+        ToastAndroid.showWithGravityAndOffset(
+          "List name cannot be empty",
+          ToastAndroid.SHORT,
+          ToastAndroid.BOTTOM,
+          25,
+          250
+        );
+      };
     
 
     return(
@@ -23,8 +31,14 @@ const showToast = () => {
             <Formik 
                 initialValues={{Name: '' }}
                 onSubmit={(values) => {
+                    if(values.Name.length > 2){
+                    showToast();
                     addList(values);
                     console.log(values);
+                    }
+                    else{
+                        cannotBeEmpty();
+                    }
                 }}
             >
 

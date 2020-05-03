@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { Component, useState } from 'react';
-import { View, Image, Text, TextInput, Button, TouchableHighlight, StyleSheet, Linking, ActionSheetIOS, } from 'react-native';
+import { View, Image, Text, TextInput, TouchableHighlight, StyleSheet, Linking, ActionSheetIOS, } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -12,7 +12,7 @@ import database from '@react-native-firebase/database';
 import firebase from '@react-native-firebase/app';
 // import { db } from '../src/config';
 import * as Firebase from '../src/firebaseAPI';
-
+import { Button } from 'react-native-paper';
 // const firebaseConfig = {
 //   apiKey: "AIzaSyBTMUIY1tvkv0770bwFOg4WpbyLzbJ3PCU",
 //   authDomain: "wha2do-swe632.firebaseapp.com",
@@ -61,8 +61,9 @@ signUp = async () => {
   }
 };
 
-export default function SignUp() {
-
+export default function SignUp(props) {
+  const { navigation } = props;
+  const [username, setUsername] = useState('');
   const [users, setUsers] = useState([
     { username: 'asdgh', password: 'lol', email: 'hsk@gmail.com', phone_number: '2341321' }
   ]);
@@ -77,11 +78,17 @@ export default function SignUp() {
 
   return (
     <View style={styles.container}>
+    <Image
+            source={require('./Icons/logo.png')}
+            style={{width: 120, height: 120, shadowColor: 'white', paddingBottom:30}}
+          />
+         <Text style={{fontSize:40, paddingBottom:10}}>Welcome.</Text>
 
       <Formik
         initialValues={{ username: '', password: '', email: '', phone_number: '' }}
         //validationSchema={userSchema}
         onSubmit={(values, actions) => {
+          navigation.navigate('TodoList',{UName:''})
           actions.resetForm();
           addUser(values);
           // maybe write the logic to add the data into firebase over here
@@ -96,6 +103,7 @@ export default function SignUp() {
         {(props) => (
           <View>
             <TextInput
+              style={styles.input}
               placeholder='Username'
               onChangeText={props.handleChange('username')}
               value={props.values.username}
@@ -109,7 +117,9 @@ export default function SignUp() {
             }
 
             <TextInput
+              style={styles.input}
               placeholder='Password'
+              secureTextEntry={true}
               onChangeText={props.handleChange('password')}
               value={props.values.password}
               onBlur={() => props.setFieldTouched('password')}
@@ -123,6 +133,7 @@ export default function SignUp() {
 
 
             <TextInput
+              style={styles.input}
               placeholder='Email'
               onChangeText={props.handleChange('email')}
               value={props.values.email}
@@ -136,6 +147,7 @@ export default function SignUp() {
             }
 
             <TextInput
+              style={styles.input}
               placeholder='Phone Number (10 digits)'
               onChangeText={props.handleChange('phone_number')}
               value={props.values.phone_number}
@@ -149,8 +161,14 @@ export default function SignUp() {
               <Text style={{ fontSize: 10, color: 'red' }}>{props.errors.phone_number}</Text>
             }
 
-
-            <Button title='submit' color='maroon' onPress={props.handleSubmit}></Button>
+            <Button
+             mode='outlined'
+             color='black'
+             onPress={props.handleSubmit}
+             >
+              Continue
+             </Button>
+           
 
           </View>
         )}
@@ -165,7 +183,9 @@ export default function SignUp() {
 const styles1 = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fafafa',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor:'#add8e6'
   },
   contentContainer: {
     paddingTop: 15,
@@ -204,19 +224,16 @@ const styles1 = StyleSheet.create({
 
 const styles = StyleSheet.create({
   input: {
-    width: 350,
-    height: 55,
-    backgroundColor: '#42A5F5',
-    margin: 10,
-    padding: 8,
-    color: 'white',
-    borderRadius: 14,
-    fontSize: 18,
-    fontWeight: '500',
-  },
+    width:250,
+    borderBottomWidth:2,
+    padding:10,
+    margin:10,
+    borderWidth:2,
+    borderRadius:20},
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor:'#add8e6'
   },
 });

@@ -13,6 +13,8 @@ import AddTodo from './Components/addTodo';
 import NewTaskForm from './Components/NewTaskForm'
 import Card from './Components/card';
 import { addTask } from '../src/firebaseAPI';
+import SwipeToDelete from 'react-swipe-to-delete-component';
+import Swipeout from 'react-native-swipeout';
 
 export default function NewTask({route, navigation}){
 
@@ -77,6 +79,25 @@ export default function NewTask({route, navigation}){
         }
       };
 
+      const swipeoutBtns = (item)=> {
+        return{
+        autoClose:true,
+        right:[
+          {text: 'Delete',
+          backgroundColor:'red',
+          height:20,
+          buttonWidth:50,
+          onPress:()=>{
+            console.log(item.key);
+            pressHandler(item.key);
+            //pressHandler(key);
+          } 
+        }
+        ]  
+        };
+        };
+      
+
     return(
         <View style ={{flex: 1 , flexDirection:'column'}}>
           <View style= {{flex: 1, flexDirection: 'row', backgroundColor: '#add8e6', padding: 25}}>
@@ -103,13 +124,16 @@ export default function NewTask({route, navigation}){
 
 
         <View style = {{flex:4, backgroundColor: '#add8e6', alignItems: "center"}}>
-       
-          <FlatList   showsVerticalScrollIndicator={false} style={{width:300}} data={todos} renderItem={({ item }) => (
-           <Card>
-           
-            <Text style={{...styles.textTitle}}>{ item.Name }</Text>
-            </Card>
+          
         
+          <FlatList   showsVerticalScrollIndicator={false} style={{width:300}} data={todos} renderItem={({ item }) => (
+            <Swipeout style={{backgroundColor:'#add8e6'}} buttonWidth={100} {...swipeoutBtns(item)} >
+            <Card>
+            <View>
+            <Text style={{...styles.textTitle}}>{ item.Name }</Text>
+            </View>
+            </Card>
+            </Swipeout>    
       )} />
 
         </View>

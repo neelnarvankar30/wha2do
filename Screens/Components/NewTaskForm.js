@@ -12,18 +12,33 @@ import {Formik} from 'formik';
 import { addTask } from '../../src/firebaseAPI';
 
 export default function NewTaskForm({addTodo}){
-    
-    return(
 
-         
+    const cannotBeEmpty = () => {
+        ToastAndroid.showWithGravityAndOffset(
+          "Task name cannot be empty",
+          ToastAndroid.SHORT,
+          ToastAndroid.BOTTOM,
+          25,
+          250
+        );
+      };
+
+
+    return(
         <View style={styles.centeredView}>
 
             <Formik 
                 initialValues={{Name: '' }}
                 onSubmit={(values) => {
-                    addTodo(values);
-                    addTask(values.Name);
+                    if(values.Name.length > 2){
+                        addTodo(values);
+                        addTask(values.Name);
                     console.log(values);
+                    }
+
+                    else{
+                        cannotBeEmpty();
+                    }
                 }}
             >
 

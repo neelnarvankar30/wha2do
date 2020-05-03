@@ -6,8 +6,8 @@ import AboutUs from '../Screens/AboutUs';
 import Info from '../Screens/Info';
 import Login from '../Screens/Login';
 import SignUp from '../Screens/SignUp';
-import TodoHome from '../Screens/TodoHome';
-import NewList from '../Screens/NewList';
+import TodoList from '../Screens/TodoList';
+import NewTask from '../Screens/NewTask';
 const Stack = createStackNavigator()
 
 export default function HomeStack(){
@@ -16,8 +16,8 @@ export default function HomeStack(){
         <NavigationContainer>
           <Stack.Navigator headerMode = 'none'>
           <Stack.Screen name='Home' component={Home} />
-          <Stack.Screen name='NewList' component={NewList} />
-          <Stack.Screen name='TodoHome' component={TodoHome} />
+          <Stack.Screen name='NewTask' component={NewTask} />
+          <Stack.Screen name='TodoList' component={TodoList} />
             <Stack.Screen name='AboutUs' component={AboutUs} />
             <Stack.Screen name='Info' component={Info} />
             <Stack.Screen name='Login' component={Login} />
