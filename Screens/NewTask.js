@@ -15,7 +15,6 @@ import Card from './Components/card';
 import { addTask } from '../src/firebaseAPI';
 import SwipeToDelete from 'react-swipe-to-delete-component';
 import Swipeout from 'react-native-swipeout';
-
 export default function NewTask({route, navigation}){
 
     const {LName} = route.params;
@@ -43,16 +42,18 @@ export default function NewTask({route, navigation}){
       };
 
       const [todos, setTodos] = useState([
-        { Name: 'buy coffee', key: '1' },
-        { Name: 'create an app', key: '2' },
-        { Name: 'play on the switch', key: '3' },
+        { Name: 'buy coffee', key: '1', time:'' },
+        { Name: 'create an app', key: '2', time:'' },
+        { Name: 'play on the switch', key: '3', time:''},
       ]);
 
       const addTodo =(Todo) => {
         Todo.key = Math.random().toString();
+        Todo.time = ''
         setTodos((currentTodos) => {
           return[Todo, ...currentTodos];
         })
+        
         console.log("List name is ",LName);
         console.log("User name is ",username);
         setModalVisible(false);
@@ -131,6 +132,7 @@ export default function NewTask({route, navigation}){
             <Card>
             <View>
             <Text style={{...styles.textTitle}}>{ item.Name }</Text>
+            <Text>Start by:</Text>
             </View>
             </Card>
             </Swipeout>    
@@ -172,6 +174,13 @@ export default function NewTask({route, navigation}){
 }
 
 const styles = StyleSheet.create({
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#4154FE'
+},
   textTitle:{
     fontSize: 18,
     fontWeight: 'bold',

@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { Component, useState } from 'react';
-import { View, Image, Text, TextInput, TouchableHighlight, StyleSheet, Linking, ActionSheetIOS, } from 'react-native';
+import { View, Image, Text, TextInput, TouchableHighlight, StyleSheet, Linking, ActionSheetIOS,ToastAndroid } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -75,20 +75,30 @@ export default function SignUp(props) {
 
     console.log(users);
   }
+  const cannotBeEmpty = () => {
+    ToastAndroid.showWithGravityAndOffset(
+        "Password cannot be less than eight characters",
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+        25,
+        250
+    );
+};
 
   return (
     <View style={styles.container}>
-    <Image
-            source={require('./Icons/logo.png')}
-            style={{width: 120, height: 120, shadowColor: 'white', paddingBottom:30}}
-          />
-         <Text style={{fontSize:40, paddingBottom:10}}>Welcome.</Text>
+      <Image
+        source={require('./Icons/logo.png')}
+        style={{ width: 120, height: 120, shadowColor: 'white', paddingBottom: 30 }}
+      />
+      <Text style={{ fontSize: 40, paddingBottom: 10 }}>Welcome.</Text>
 
       <Formik
         initialValues={{ username: '', password: '', email: '', phone_number: '' }}
         //validationSchema={userSchema}
         onSubmit={(values, actions) => {
-          navigation.navigate('TodoList',{UName:''})
+          if(values.password.length > 8){
+          navigation.navigate('TodoList', { UName: '' })
           actions.resetForm();
           addUser(values);
           // maybe write the logic to add the data into firebase over here
@@ -98,7 +108,12 @@ export default function SignUp(props) {
           // hopefully we're able to send this data to firebase as well
 
           // console.log(values);
+        }
+        else{
+          cannotBeEmpty();
+        }
         }}
+        
       >
         {(props) => (
           <View>
@@ -162,13 +177,13 @@ export default function SignUp(props) {
             }
 
             <Button
-             mode='outlined'
-             color='black'
-             onPress={props.handleSubmit}
-             >
+              mode='outlined'
+              color='black'
+              onPress={props.handleSubmit}
+            >
               Continue
              </Button>
-           
+
 
           </View>
         )}
@@ -185,7 +200,7 @@ const styles1 = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'#add8e6'
+    backgroundColor: '#add8e6'
   },
   contentContainer: {
     paddingTop: 15,
@@ -224,16 +239,17 @@ const styles1 = StyleSheet.create({
 
 const styles = StyleSheet.create({
   input: {
-    width:250,
-    borderBottomWidth:2,
-    padding:10,
-    margin:10,
-    borderWidth:2,
-    borderRadius:20},
+    width: 250,
+    borderBottomWidth: 2,
+    padding: 10,
+    margin: 10,
+    borderWidth: 2,
+    borderRadius: 20
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'#add8e6'
+    backgroundColor: '#add8e6'
   },
 });
