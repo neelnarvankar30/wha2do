@@ -9,9 +9,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import database from '@react-native-firebase/database';
-import firebase from '@react-native-firebase/app';
+// import firebase from '@react-native-firebase/app';
 // import { db } from '../src/config';
 import * as Firebase from '../src/firebaseAPI';
+import firebase from 'firebase';
 import { Button } from 'react-native-paper';
 // const firebaseConfig = {
 //   apiKey: "AIzaSyBTMUIY1tvkv0770bwFOg4WpbyLzbJ3PCU",
@@ -78,25 +79,27 @@ export default function SignUp(props) {
 
   return (
     <View style={styles.container}>
-    <Image
-            source={require('./Icons/logo.png')}
-            style={{width: 120, height: 120, shadowColor: 'white', paddingBottom:30}}
-          />
-         <Text style={{fontSize:40, paddingBottom:10}}>Welcome.</Text>
+      <Image
+        source={require('./Icons/logo.png')}
+        style={{ width: 120, height: 120, shadowColor: 'white', paddingBottom: 30 }}
+      />
+      <Text style={{ fontSize: 40, paddingBottom: 10 }}>Welcome.</Text>
 
       <Formik
         initialValues={{ username: '', password: '', email: '', phone_number: '' }}
         //validationSchema={userSchema}
         onSubmit={(values, actions) => {
-          navigation.navigate('TodoList',{UName:''})
           actions.resetForm();
           addUser(values);
           // maybe write the logic to add the data into firebase over here
-          Firebase.createUser(values.email, values.password);
+          Firebase.createUser(values.username, values.email, values.password);
           Firebase.addTest(values.username, values.email, values.password, values.phone_number);
+          
+          firebase.auth().onAuthStateChanged(user => {
+            navigation.navigate(user ? 'TodoList' : 'SignUp')
+          })
           // so currently, I am able to add new users inside the users json array (declared on line 36)
-          // hopefully we're able to send this data to firebase as well
-
+          // hopefully we're able to send this data to firebase as well          
           // console.log(values);
         }}
       >
@@ -162,13 +165,13 @@ export default function SignUp(props) {
             }
 
             <Button
-             mode='outlined'
-             color='black'
-             onPress={props.handleSubmit}
-             >
+              mode='outlined'
+              color='black'
+              onPress={props.handleSubmit}
+            >
               Continue
              </Button>
-           
+
 
           </View>
         )}
@@ -185,7 +188,7 @@ const styles1 = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'#add8e6'
+    backgroundColor: '#add8e6'
   },
   contentContainer: {
     paddingTop: 15,
@@ -224,16 +227,17 @@ const styles1 = StyleSheet.create({
 
 const styles = StyleSheet.create({
   input: {
-    width:250,
-    borderBottomWidth:2,
-    padding:10,
-    margin:10,
-    borderWidth:2,
-    borderRadius:20},
+    width: 250,
+    borderBottomWidth: 2,
+    padding: 10,
+    margin: 10,
+    borderWidth: 2,
+    borderRadius: 20
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'#add8e6'
+    backgroundColor: '#add8e6'
   },
 });

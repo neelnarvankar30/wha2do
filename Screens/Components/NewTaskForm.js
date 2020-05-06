@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {View,Image,Text,Alert,TextInput,Button,TouchableHighlight,StyleSheet,Linking,Modal,FlatList,TouchableWithoutFeedback,Keyboard, ToastAndroid} from 'react-native';
 import {FormLabel,FormInput,FormValidationMessage,} from 'react-native-elements';
 import {NavigationContainer} from '@react-navigation/native';
@@ -10,12 +10,22 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { FAB } from 'react-native-paper';
 import {Formik} from 'formik';
 import { addTask } from '../../src/firebaseAPI';
+import firebase from 'firebase';
 
 export default function NewTaskForm({addTodo}){
 
+    const [currentUser, setCurrentUser] = useState('');
+
+    useEffect(() => {
+      const { currentUser } = firebase.auth()
+      setCurrentUser(currentUser)
+    })
+  
+    console.log("current user in newtask form is ->>>>> ", currentUser)
+
     const cannotBeEmpty = () => {
         ToastAndroid.showWithGravityAndOffset(
-          "Task name cannot be empty",
+          "Cannot create empty task",
           ToastAndroid.SHORT,
           ToastAndroid.BOTTOM,
           25,
@@ -32,7 +42,7 @@ export default function NewTaskForm({addTodo}){
                 onSubmit={(values) => {
                     if(values.Name.length > 2){
                         addTodo(values);
-                        addTask(values.Name);
+                        // addTask(values.Name);
                     console.log(values);
                     }
 

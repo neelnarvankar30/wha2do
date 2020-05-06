@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {View,Image,Text,TextInput,TouchableHighlight,StyleSheet,Linking,} from 'react-native';
 import {FormLabel,FormInput,FormValidationMessage, ThemeConsumer,} from 'react-native-elements';
 import {NavigationContainer} from '@react-navigation/native';
@@ -7,9 +7,21 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {RectButton, ScrollView} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-paper';
+import TodoList from "../Screens/TodoList"
+import firebase from 'firebase';
+import { useEffect } from 'react';
+
 
 export default function Home(props){
-    const { navigation } = props
+  const { navigation } = props
+
+  // uncomment when implemented Login button
+  // useEffect(() => {
+  //   firebase.auth().onAuthStateChanged(user => {
+  //     navigation.navigate(user ? 'TodoList' : 'Home')
+  //   })
+  // })
+  
 return (
     
     <View style={{flex: 1, flexDirection: 'column'}}>

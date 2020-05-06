@@ -2,16 +2,26 @@
 import auth from '@react-native-firebase/auth';
 import md5 from 'md5';
 import firebase from 'firebase';
+import { ActivityIndicatorComponent } from 'react-native';
 
-export const createUser = (email, password) => {
+var currentUser;
+
+export const createUser = (username, email, password, phone_number) => {
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
-        .catch((error) => console.log("createUser error: ", error))
+        .then(function (result) {
+            return result.user.updateProfile({
+                displayName: username,
+                // phoneNumber: phone_number
+            })
+        }).catch(function (error) {
+            console.log(error);
+        });
 }
 
 export const addTest = (username, email, password, phone_number) => {
-    
-    console.log("MD5 hash of ",password," is ",md5(password));
+
+    console.log("MD5 hash of ", password, " is ", md5(password));
     url = '/users/'.concat(username);
     console.log(url);
 
@@ -26,11 +36,13 @@ export const addTest = (username, email, password, phone_number) => {
         .then(() => console.log('LALALALLAALLALAALALALALA'));
 }
 
-export const addTask = (taskname, listname, username) => {
-    
+export const addTask = (taskname, listname, username, uid) => {
+
+    var task_id = Date.now();
+
     const data = {
         'taskname': taskname,
-        'id': Date.now(),
+        'id': task_id,
         'completed': false,
         'username': username,
         'listname': listname
@@ -42,7 +54,7 @@ export const addTask = (taskname, listname, username) => {
     console.log(listname.listname);
 
     firebase.database()
-        .ref('/users').child(username).child(listname).child(Date.now())
+        .ref('/users').child(uid).child(listname).child(task_id)
         .set(data)
         .then(() => console.log('Task created!!!'));
 }
