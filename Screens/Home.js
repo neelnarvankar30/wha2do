@@ -16,11 +16,11 @@ export default function Home(props){
   const { navigation } = props
 
   // uncomment when implemented Login button
-  // useEffect(() => {
-  //   firebase.auth().onAuthStateChanged(user => {
-  //     navigation.navigate(user ? 'TodoList' : 'Home')
-  //   })
-  // })
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      navigation.navigate(user ? 'TodoList' : 'Home')
+    })
+  })
   
 return (
     

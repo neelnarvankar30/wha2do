@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { View, FlatList, Image, Text, TextInput, ToastAndroid, TouchableHighlight, Button, TouchableOpacity, StyleSheet, Linking, Modal } from 'react-native';
+import { BackHandler, Alert, View, FlatList, Image, Text, TextInput, ToastAndroid, TouchableHighlight, Button, TouchableOpacity, StyleSheet, Linking, Modal } from 'react-native';
 import { CheckBox } from "react-native-elements";
 import { FAB, CardActions, Title, Paragraph } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -14,15 +14,32 @@ export default function TodoList({ route, navigation }) {
     // const { UName } = route.params;
     // const [lname, setlname] = useState('');
 
-
     const [currentUser, setCurrentUser] = useState('');
+
+    const backAction = () => {
+        Alert.alert("Exit app?", "Are you sure you want to exit?", [
+            {
+                text: "Cancel",
+                onPress: () => null,
+                style: "cancel"
+            },
+            { text: "YES", onPress: () => BackHandler.exitApp() }
+        ]);
+        return true;
+    };
+
 
     // state = { currentUser: null }
     useEffect(() => {
-      const { currentUser } = firebase.auth()
-      setCurrentUser(currentUser)
-  })
-    console.log("current user is ->>>>> ",currentUser)
+        const { currentUser } = firebase.auth()
+        setCurrentUser(currentUser)
+
+        BackHandler.addEventListener("hardwareBackPress", backAction);
+
+        return () =>
+            BackHandler.removeEventListener("hardwareBackPress", backAction);
+    }, [])
+    console.log("current user is ->>>>> ", currentUser)
 
     const [modalVisible, setModalVisible] = useState(false);
 

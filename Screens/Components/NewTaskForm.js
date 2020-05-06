@@ -1,30 +1,18 @@
 import 'react-native-gesture-handler';
-<<<<<<< HEAD
 import React, {Component, useState, useEffect} from 'react';
 import {View,Image,Text,Alert,TextInput,Button,TouchableHighlight,StyleSheet,Linking,Modal,FlatList,TouchableWithoutFeedback,Keyboard, ToastAndroid} from 'react-native';
 import {FormLabel,FormInput,FormValidationMessage,} from 'react-native-elements';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {RectButton, ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-=======
-import React, { Component, useState } from 'react';
-import { View, Image, Text, Alert, TextInput, Button, TouchableHighlight, StyleSheet, Linking, Modal, FlatList, TouchableWithoutFeedback, Keyboard, ToastAndroid } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage, } from 'react-native-elements';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
->>>>>>> 8fa2cee811739e33c6cf3f07bb65d0a26105d367
 import { CheckBox } from "react-native-elements";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FAB } from 'react-native-paper';
 import { Formik } from 'formik';
 import { addTask } from '../../src/firebaseAPI';
-<<<<<<< HEAD
 import firebase from 'firebase';
-=======
 import DateTimePicker from '@react-native-community/datetimepicker';
 //import DateTimePicker from '@react-native-community/datetimepicker';
->>>>>>> 8fa2cee811739e33c6cf3f07bb65d0a26105d367
 
 export default function NewTaskForm({ addTodo }) {
 
@@ -39,19 +27,11 @@ export default function NewTaskForm({ addTodo }) {
 
     const cannotBeEmpty = () => {
         ToastAndroid.showWithGravityAndOffset(
-<<<<<<< HEAD
-          "Cannot create empty task",
-          ToastAndroid.SHORT,
-          ToastAndroid.BOTTOM,
-          25,
-          250
-=======
             "Task name cannot be empty",
             ToastAndroid.SHORT,
             ToastAndroid.BOTTOM,
             25,
             250
->>>>>>> 8fa2cee811739e33c6cf3f07bb65d0a26105d367
         );
     };
 
@@ -86,13 +66,8 @@ export default function NewTaskForm({ addTodo }) {
                 onSubmit={(values) => {
                     if (values.Name.length > 2) {
                         addTodo(values);
-<<<<<<< HEAD
-                        // addTask(values.Name);
-                    console.log(values);
-=======
                         addTask(values.Name);
                         console.log(values);
->>>>>>> 8fa2cee811739e33c6cf3f07bb65d0a26105d367
                     }
 
                     else {

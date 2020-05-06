@@ -98,11 +98,8 @@ export default function SignUp(props) {
         initialValues={{ username: '', password: '', email: '', phone_number: '' }}
         //validationSchema={userSchema}
         onSubmit={(values, actions) => {
-<<<<<<< HEAD
-=======
           if(values.password.length > 8){
           navigation.navigate('TodoList', { UName: '' })
->>>>>>> 8fa2cee811739e33c6cf3f07bb65d0a26105d367
           actions.resetForm();
           addUser(values);
           // maybe write the logic to add the data into firebase over here
