@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { Component, useState } from 'react';
-import { View, Image, Text, TextInput, TouchableHighlight, StyleSheet, Linking, ActionSheetIOS, } from 'react-native';
+import { View, Image, Text, TextInput, TouchableHighlight, StyleSheet, Linking, ActionSheetIOS,ToastAndroid } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -76,6 +76,15 @@ export default function SignUp(props) {
 
     console.log(users);
   }
+  const cannotBeEmpty = () => {
+    ToastAndroid.showWithGravityAndOffset(
+        "Password cannot be less than eight characters",
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+        25,
+        250
+    );
+};
 
   return (
     <View style={styles.container}>
@@ -89,6 +98,11 @@ export default function SignUp(props) {
         initialValues={{ username: '', password: '', email: '', phone_number: '' }}
         //validationSchema={userSchema}
         onSubmit={(values, actions) => {
+<<<<<<< HEAD
+=======
+          if(values.password.length > 8){
+          navigation.navigate('TodoList', { UName: '' })
+>>>>>>> 8fa2cee811739e33c6cf3f07bb65d0a26105d367
           actions.resetForm();
           addUser(values);
           // maybe write the logic to add the data into firebase over here
@@ -101,7 +115,12 @@ export default function SignUp(props) {
           // so currently, I am able to add new users inside the users json array (declared on line 36)
           // hopefully we're able to send this data to firebase as well          
           // console.log(values);
+        }
+        else{
+          cannotBeEmpty();
+        }
         }}
+        
       >
         {(props) => (
           <View>

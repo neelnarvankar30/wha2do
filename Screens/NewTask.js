@@ -15,6 +15,7 @@ import Card from './Components/card';
 import { addTask } from '../src/firebaseAPI';
 import SwipeToDelete from 'react-swipe-to-delete-component';
 import Swipeout from 'react-native-swipeout';
+<<<<<<< HEAD
 import firebase from 'firebase';
 
 
@@ -101,6 +102,82 @@ export default function NewTask({ route, navigation }) {
           height: 20,
           buttonWidth: 50,
           onPress: () => {
+=======
+export default function NewTask({route, navigation}){
+
+    const {LName} = route.params;
+    const {username} = route.params;
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const showToastWithGravityAndOffset = () => {
+        ToastAndroid.showWithGravityAndOffset(
+          "New Task Created",
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER,
+          25,
+          50
+        );
+      };
+    
+      const cannotBeEmpty = () => {
+        ToastAndroid.showWithGravityAndOffset(
+          "Task name cannot be empty",
+          ToastAndroid.SHORT,
+          ToastAndroid.BOTTOM,
+          25,
+          50
+        );
+      };
+
+      const [todos, setTodos] = useState([
+        { Name: 'buy coffee', key: '1', time:'' },
+        { Name: 'create an app', key: '2', time:'' },
+        { Name: 'play on the switch', key: '3', time:''},
+      ]);
+
+      const addTodo =(Todo) => {
+        Todo.key = Math.random().toString();
+        Todo.time = ''
+        setTodos((currentTodos) => {
+          return[Todo, ...currentTodos];
+        })
+        
+        console.log("List name is ",LName);
+        console.log("User name is ",username);
+        setModalVisible(false);
+        addTask(Todo.Name, LName, username)
+        
+      }
+    
+      const pressHandler = (key) => {
+        setTodos(prevTodos => {
+          return prevTodos.filter(todo => todo.key != key);
+        });
+      };
+    
+      const submitHandler = (text) => {
+        if(text.length > 3){
+          setTodos(prevTodos => {
+            return [
+              { text, key: Math.random().toString() },
+              ...prevTodos
+            ];
+          });
+        } else {
+          cannotBeEmpty();
+        }
+      };
+
+      const swipeoutBtns = (item)=> {
+        return{
+        autoClose:true,
+        right:[
+          {text: 'Delete',
+          backgroundColor:'red',
+          height:20,
+          buttonWidth:50,
+          onPress:()=>{
+>>>>>>> 8fa2cee811739e33c6cf3f07bb65d0a26105d367
             console.log(item.key);
             pressHandler(item.key);
             //pressHandler(key);
@@ -142,9 +219,16 @@ export default function NewTask({ route, navigation }) {
         <FlatList showsVerticalScrollIndicator={false} style={{ width: 300 }} data={todos} renderItem={({ item }) => (
           <Swipeout style={{ backgroundColor: '#add8e6' }} buttonWidth={100} {...swipeoutBtns(item)} >
             <Card>
+<<<<<<< HEAD
               <View>
                 <Text style={{ ...styles.textTitle }}>{item.Name}</Text>
               </View>
+=======
+            <View>
+            <Text style={{...styles.textTitle}}>{ item.Name }</Text>
+            <Text>Start by:</Text>
+            </View>
+>>>>>>> 8fa2cee811739e33c6cf3f07bb65d0a26105d367
             </Card>
           </Swipeout>
         )} />
@@ -185,7 +269,18 @@ export default function NewTask({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
+<<<<<<< HEAD
   textTitle: {
+=======
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#4154FE'
+},
+  textTitle:{
+>>>>>>> 8fa2cee811739e33c6cf3f07bb65d0a26105d367
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',

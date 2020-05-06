@@ -1,18 +1,32 @@
 import 'react-native-gesture-handler';
+<<<<<<< HEAD
 import React, {Component, useState, useEffect} from 'react';
 import {View,Image,Text,Alert,TextInput,Button,TouchableHighlight,StyleSheet,Linking,Modal,FlatList,TouchableWithoutFeedback,Keyboard, ToastAndroid} from 'react-native';
 import {FormLabel,FormInput,FormValidationMessage,} from 'react-native-elements';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {RectButton, ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+=======
+import React, { Component, useState } from 'react';
+import { View, Image, Text, Alert, TextInput, Button, TouchableHighlight, StyleSheet, Linking, Modal, FlatList, TouchableWithoutFeedback, Keyboard, ToastAndroid } from 'react-native';
+import { FormLabel, FormInput, FormValidationMessage, } from 'react-native-elements';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+>>>>>>> 8fa2cee811739e33c6cf3f07bb65d0a26105d367
 import { CheckBox } from "react-native-elements";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FAB } from 'react-native-paper';
-import {Formik} from 'formik';
+import { Formik } from 'formik';
 import { addTask } from '../../src/firebaseAPI';
+<<<<<<< HEAD
 import firebase from 'firebase';
+=======
+import DateTimePicker from '@react-native-community/datetimepicker';
+//import DateTimePicker from '@react-native-community/datetimepicker';
+>>>>>>> 8fa2cee811739e33c6cf3f07bb65d0a26105d367
 
-export default function NewTaskForm({addTodo}){
+export default function NewTaskForm({ addTodo }) {
 
     const [currentUser, setCurrentUser] = useState('');
 
@@ -25,49 +39,99 @@ export default function NewTaskForm({addTodo}){
 
     const cannotBeEmpty = () => {
         ToastAndroid.showWithGravityAndOffset(
+<<<<<<< HEAD
           "Cannot create empty task",
           ToastAndroid.SHORT,
           ToastAndroid.BOTTOM,
           25,
           250
+=======
+            "Task name cannot be empty",
+            ToastAndroid.SHORT,
+            ToastAndroid.BOTTOM,
+            25,
+            250
+>>>>>>> 8fa2cee811739e33c6cf3f07bb65d0a26105d367
         );
-      };
+    };
 
+    const [date, setDate] = useState(new Date(1598051730000));
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
 
-    return(
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios');
+        setDate(currentDate);
+    };
+
+    const showMode = currentMode => {
+        setShow(true);
+        setMode(currentMode);
+    };
+
+    const showDatepicker = () => {
+        showMode('date');
+    };
+
+    const showTimepicker = () => {
+        showMode('time');
+    };
+
+    return (
         <View style={styles.centeredView}>
 
-            <Formik 
-                initialValues={{Name: '' }}
+            <Formik
+                initialValues={{ Name: '' }}
                 onSubmit={(values) => {
-                    if(values.Name.length > 2){
+                    if (values.Name.length > 2) {
                         addTodo(values);
+<<<<<<< HEAD
                         // addTask(values.Name);
                     console.log(values);
+=======
+                        addTask(values.Name);
+                        console.log(values);
+>>>>>>> 8fa2cee811739e33c6cf3f07bb65d0a26105d367
                     }
 
-                    else{
+                    else {
                         cannotBeEmpty();
                     }
                 }}
             >
 
-                {(props) => ( 
+                {(props) => (
 
                     <View style={styles.modalView}>
-                <Text>Add Task</Text>
+                        <Text>Add Task</Text>
 
-                <TextInput
-                    style={styles.input}
-                    placeholder="Task Name"
-                    autoCapitalize="none"
-                    placeholderTextColor="black"
-                    onChangeText={props.handleChange('Name')}
-                    value = {props.values.Name}
-                />
-                <Button title='Add' color='grey' onPress={props.handleSubmit} />
-                
-            </View>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Task Name"
+                            autoCapitalize="none"
+                            placeholderTextColor="black"
+                            onChangeText={props.handleChange('Name')}
+                            value={props.values.Name}
+                        />
+                        <Button title='Add' color='grey' onPress={props.handleSubmit} />
+                        {/* <Text> </Text>
+                        <Button onPress={showDatepicker} color='grey' title="Pick a date" /> */}
+                        <Text> </Text>
+                        <Button onPress={showTimepicker} color='grey' title="pick a time to start" />
+                        {show && (
+                            <DateTimePicker
+                                testID="dateTimePicker"
+                                timeZoneOffsetInMinutes={0}
+                                value={date}
+                                mode={mode}
+                                is24Hour={true}
+                                display="default"
+                                onChange={onChange}
+                            />
+                        )}
+
+                    </View>
 
                 )}
 
@@ -75,35 +139,35 @@ export default function NewTaskForm({addTodo}){
             </Formik>
 
 
-           
+
         </View>
-    
-)
+
+    )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-      },
-      content: {
+    },
+    content: {
         padding: 40,
         flex: 1,
-      },
-      list: {
+    },
+    list: {
         marginTop: 20,
         flex: 1,
-      },
-    
-    input: {
-            width:250,
-            borderBottomWidth:2,
-            padding:10,
-            margin:10,
-            borderWidth:2,
-            borderRadius:20
     },
-    
+
+    input: {
+        width: 250,
+        borderBottomWidth: 2,
+        padding: 10,
+        margin: 10,
+        borderWidth: 2,
+        borderRadius: 20
+    },
+
     centeredView: {
         flex: 1,
         justifyContent: "center",
@@ -111,7 +175,7 @@ const styles = StyleSheet.create({
         marginTop: 22
     },
     modalView: {
-        width:325,
+        width: 325,
         margin: 20,
         backgroundColor: "white",
         borderRadius: 20,
