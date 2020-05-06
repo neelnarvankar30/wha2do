@@ -58,3 +58,11 @@ export const addTask = (taskname, listname, username, uid) => {
         .set(data)
         .then(() => console.log('Task created!!!'));
 }
+
+export const signOut = async () => {
+    try {
+        await firebase.auth().signOut();
+    } catch (e) {
+        console.log(e);
+    }
+}

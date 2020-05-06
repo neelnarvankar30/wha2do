@@ -35,7 +35,7 @@ export default function NewTaskForm({ addTodo }) {
         );
     };
 
-    const [date, setDate] = useState(new Date(1598051730000));
+    const [date, setDate] = useState(Date.now());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 

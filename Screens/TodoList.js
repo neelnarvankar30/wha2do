@@ -7,6 +7,7 @@ import TodoForm from './Components/TodoForm'
 import Card from './Components/card'
 import firebase from 'firebase';
 import { useEffect } from 'react';
+import firebaseAPI, { signOut } from '../src/firebaseAPI';
 
 export default function TodoList({ route, navigation }) {
     //const { itemId } = route.params;
@@ -79,6 +80,17 @@ export default function TodoList({ route, navigation }) {
                 </View>
 
                 <View style={{ flex: 2, flexDirection: 'column', backgroundColor: '#add8e6', justifyContent: "center" }}>
+                    <View style={{ flex: 1, backgroundColor: '#add8e6' }}>
+                        <FAB
+                            style={styles.fab_logout}
+                            icon="logout"
+                            onPress={() => {
+                                signOut()
+                                navigation.navigate('Home');
+                            }}
+                            color="white"
+                        />
+                    </View>
                     <View style={{ flex: 1, backgroundColor: '#add8e6', borderBottomWidth: 2 }}>
                     </View>
                     <View style={{ flex: 1, backgroundColor: '#add8e6' }}>
@@ -121,7 +133,7 @@ export default function TodoList({ route, navigation }) {
                 transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
+                    setModalVisible(!modalVisible);
                 }}
             >
 
@@ -142,6 +154,13 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
         backgroundColor: '#4154FE'
+    },
+    fab_logout: {
+        position: 'absolute',
+        // margin: 16,
+        right: 0,
+        bottom: 0,
+        backgroundColor: '#add8e6'
     },
     input: {
         width: 300,
