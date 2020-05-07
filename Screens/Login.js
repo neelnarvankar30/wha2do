@@ -24,7 +24,7 @@ export default function Login(props) {
 
       <TextInput
         style={styles.input}
-        placeholder="Username"
+        placeholder="Email address"
         autoCapitalize="none"
         placeholderTextColor="black"
         onChangeText={username => setUsername(username)}
@@ -37,7 +37,6 @@ export default function Login(props) {
         autoCapitalize="none"
         placeholderTextColor="black"
         onChangeText={password => setPassword(password)}
-      // onChangeText={val => this.onChangeText('password', val)}
       />
 
 

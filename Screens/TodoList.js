@@ -29,7 +29,6 @@ export default function TodoList({ route, navigation }) {
         return true;
     };
 
-
     // state = { currentUser: null }
     useEffect(() => {
         const { currentUser } = firebase.auth()
@@ -100,7 +99,7 @@ export default function TodoList({ route, navigation }) {
 
             <View style={{ flex: 1, backgroundColor: '#add8e6', alignItems: "center" }}>
 
-                <Text>Welcome {currentUser.displayName}</Text>
+                <Text style={{fontSize: 30}}>Welcome, <Text style={{fontWeight: "bold"}}>{currentUser.displayName}</Text></Text>
             </View>
 
 

@@ -39,23 +39,6 @@ export default function NewListForm({addTodo}){
                     onChangeText={props.handleChange('Name')}
                     value = {props.values.Name}
                 />
-                {/* <TextInput
-                    style={styles.input}
-                    placeholder="Time-Start"
-                    autoCapitalize="none"
-                    placeholderTextColor="black"
-                    keyboardType='number-pad'
-                // onChangeText={val => this.onChangeText('username', val)}
-                />
-                
-                <TextInput
-                    style={styles.input}
-                    placeholder="Time-End"
-                    autoCapitalize="none"
-                    placeholderTextColor="black"
-                    keyboardType='number-pad'
-                // onChangeText={val => this.onChangeText('username', val)}
-                /> */}
 
                 <Button title='Add' color='grey' onPress={props.handleSubmit} />
                 

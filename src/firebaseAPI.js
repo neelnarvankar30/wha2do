@@ -6,13 +6,12 @@ import { ActivityIndicatorComponent } from 'react-native';
 
 var currentUser;
 
-export const createUser = (username, email, password, phone_number) => {
+export const createUser = (username, email, password) => {
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(function (result) {
             return result.user.updateProfile({
                 displayName: username,
-                // phoneNumber: phone_number
             })
         }).catch(function (error) {
             console.log(error);
