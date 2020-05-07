@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { Component, useState, useEffect } from 'react';
-import { View, Image, Text, Alert, TextInput, Button, TouchableHighlight, StyleSheet, Linking, Modal, FlatList, TouchableWithoutFeedback, Keyboard, ToastAndroid, RecyclerViewBackedScrollView } from 'react-native';
+import {BackHandler, View, Image, Text, Alert, TextInput, Button, TouchableHighlight, StyleSheet, Linking, Modal, FlatList, TouchableWithoutFeedback, Keyboard, ToastAndroid, RecyclerViewBackedScrollView } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -25,13 +25,21 @@ export default function NewTask({ route, navigation }) {
 
   const [currentUser, setCurrentUser] = useState('');
 
+  const backAction = () => {
+    navigation.goBack(null);
+    return true;
+};
+
+
   useEffect(() => {
     const { currentUser } = firebase.auth()
     setCurrentUser(currentUser)
-    console.log("current user in newtask is ->>>>> ", currentUser.uid)
-  })
-  console.log("current user outside wala in newtask is ->>>>> ", currentUser.uid)
+    console.log("current user in newtask is ->>>>> ", currentUser.displayName)
 
+    BackHandler.addEventListener("hardwareBackPress", backAction);
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+  }, [])
 
   const [modalVisible, setModalVisible] = useState(false);
   const showToastWithGravityAndOffset = () => {
@@ -68,7 +76,7 @@ export default function NewTask({ route, navigation }) {
     console.log("List name is ", LName);
     console.log("User name is ", username);
     setModalVisible(false);
-    addTask(Todo.Name, LName, currentUser.displayName, currentUser.uid)
+    addTask(Todo.Name, LName, username.displayName, username.uid)
 
   }
 
@@ -142,10 +150,10 @@ export default function NewTask({ route, navigation }) {
         <FlatList showsVerticalScrollIndicator={false} style={{ width: 300 }} data={todos} renderItem={({ item }) => (
           <Swipeout style={{ backgroundColor: '#add8e6' }} buttonWidth={100} {...swipeoutBtns(item)} >
             <Card>
-            <View>
-            <Text style={{...styles.textTitle}}>{ item.Name }</Text>
-            <Text>Start by:</Text>
-            </View>
+              <View>
+                <Text style={{ ...styles.textTitle }}>{item.Name}</Text>
+                <Text>Start by:</Text>
+              </View>
             </Card>
           </Swipeout>
         )} />
@@ -192,8 +200,8 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     backgroundColor: '#4154FE'
-},
-  textTitle:{
+  },
+  textTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',

@@ -14,7 +14,6 @@ import { addTask } from '../../src/firebaseAPI';
 export default function NewListForm({addTodo}){
     
     return(
-
          
         <View style={styles.centeredView}>
 

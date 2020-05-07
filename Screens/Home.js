@@ -1,10 +1,10 @@
 import 'react-native-gesture-handler';
-import React, {Component, useState} from 'react';
-import {View,Image,Text,TextInput,TouchableHighlight,StyleSheet,Linking,} from 'react-native';
-import {FormLabel,FormInput,FormValidationMessage, ThemeConsumer,} from 'react-native-elements';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {RectButton, ScrollView} from 'react-native-gesture-handler';
+import React, { Component, useState } from 'react';
+import {BackHandler, Alert, View, Image, Text, TextInput, TouchableHighlight, StyleSheet, Linking, } from 'react-native';
+import { FormLabel, FormInput, FormValidationMessage, ThemeConsumer, } from 'react-native-elements';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-paper';
 import TodoList from "../Screens/TodoList"
@@ -12,19 +12,40 @@ import firebase from 'firebase';
 import { useEffect } from 'react';
 
 
-export default function Home(props){
+export default function Home(props) {
   const { navigation } = props
+
+  console.disableYellowBox = true;
+
+
+  const backAction = () => {
+    Alert.alert("Exit app?", "Are you sure you want to exit?", [
+      {
+        text: "Cancel",
+        onPress: () => null,
+        style: "cancel"
+      },
+      { text: "YES", onPress: () => BackHandler.exitApp() }
+    ]);
+    return true;
+  };
+
 
   // uncomment when implemented Login button
   useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", backAction);
+
     firebase.auth().onAuthStateChanged(user => {
       navigation.navigate(user ? 'TodoList' : 'Home')
     })
-  })
-  
-return (
-    
-    <View style={{flex: 1, flexDirection: 'column'}}>
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+
+  }, [])
+
+  return (
+
+    <View style={{ flex: 1, flexDirection: 'column' }}>
       <View
         style={{
           flex: 2,
@@ -40,7 +61,7 @@ return (
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          
+
         </View>
 
         <View
@@ -51,7 +72,7 @@ return (
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          
+
         </View>
       </View>
 
@@ -64,25 +85,25 @@ return (
         }}>
 
         <Image
-            source={require('./Icons/logo.png')}
-            style={{width: 120, height: 120, shadowColor: 'white', padding:20}}
-          />
+          source={require('./Icons/logo.png')}
+          style={{ width: 120, height: 120, shadowColor: 'white', padding: 20 }}
+        />
 
-        <Text style={{padding:20, paddingBottom:25, fontSize:50,fontStyle:'italic'}}>wha2do</Text>
+        <Text style={{ padding: 20, paddingBottom: 25, fontSize: 50, fontStyle: 'italic' }}>wha2do</Text>
         <Button mode="contained" color='white' width="60%" onPress={() => navigation.navigate('Login')}>Login</Button>
         <Text> </Text>
         <Button
-        contentStyle={{}} 
-         mode='outlined'
-        color='black' 
-        width="60%" 
-        onPress={() => navigation.navigate('SignUp')}>
-        Sign-Up
-        </Button>       
+          contentStyle={{}}
+          mode='outlined'
+          color='black'
+          width="60%"
+          onPress={() => navigation.navigate('SignUp')}>
+          Sign-Up
+        </Button>
       </View>
 
       <View
-        style={{flex: 1, flexDirection: 'row', backgroundColor: 'steelblue'}}>
+        style={{ flex: 1, flexDirection: 'row', backgroundColor: 'steelblue' }}>
         <View
           style={{
             flex: 1,
@@ -92,7 +113,7 @@ return (
           <Button
             onPress={() => navigation.navigate('AboutUs')}
             color='black'
-            >
+          >
             Info
           </Button>
         </View>
