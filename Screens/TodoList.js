@@ -80,9 +80,7 @@ export default function TodoList({ route, navigation }) {
                 </View>
 
                 <View style={{ flex: 2, flexDirection: 'column', backgroundColor: '#add8e6', justifyContent: "center" }}>
-                    <View style={{ flex: 1, backgroundColor: '#add8e6' }}>
-                        
-                    </View>
+                    
                     <View style={{ flex: 1, backgroundColor: '#add8e6', borderBottomWidth: 2 }}>
                     </View>
                     <View style={{ flex: 1, backgroundColor: '#add8e6' }}>
@@ -92,7 +90,7 @@ export default function TodoList({ route, navigation }) {
 
             <View style={{ flex: 1, backgroundColor: '#add8e6', alignItems: "center" }}>
 
-                <Text>Welcome {currentUser.displayName}</Text>
+                <Text style={{fontSize:20}}>Welcome {currentUser.displayName}</Text>
             </View>
 
 
@@ -107,7 +105,7 @@ export default function TodoList({ route, navigation }) {
                 )} />
             </View>
 
-            <View style={{ flex: 1, flexDirection: 'row-reverse',backgroundColor: '#add8e6'}}>
+            <View style={{ flex: 1, flexDirection: 'row-reverse', backgroundColor: '#add8e6'}}>
                 <View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#add8e6', justifyContent: 'flex-start' }}>
                     <FAB
                         style={styles.fab}
@@ -119,7 +117,7 @@ export default function TodoList({ route, navigation }) {
                         color="white"
                     />
                 </View>
-                <View style={{ left:80, flex: 1, backgroundColor: '#add8e6', justifyContent: 'center', alignContent:'center' }}>
+                <View style={{left:80, flex: 1, backgroundColor: '#add8e6', justifyContent: 'center', alignContent:'center' }}>
                 <FAB
                             style={styles.fab}
                             icon="logout"

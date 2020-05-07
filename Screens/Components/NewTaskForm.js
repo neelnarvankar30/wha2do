@@ -72,7 +72,7 @@ export default function NewTaskForm({ addTodo }) {
         <View style={styles.centeredView}>
 
             <Formik
-                initialValues={{ Name: '', time: testing() }}
+                initialValues={{ Name: '', time: testing(), comp:'To be Completed' }}
                 onSubmit={(values) => {
                     if (values.Name.length > 2) {
                         addTodo(values);

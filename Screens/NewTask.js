@@ -55,9 +55,9 @@ export default function NewTask({ route, navigation }) {
   };
 
   const [todos, setTodos] = useState([
-    { Name: 'buy coffee', key: '1', time:'3:15' },
-    { Name: 'create an app', key: '2', time:'10:20' },
-    { Name: 'play on the switch', key: '3', time:'11:11' },
+    { Name: 'buy coffee', key: '1', time:'3:15', comp:'To be Completed' },
+    { Name: 'create an app', key: '2', time:'10:20', comp:'To be Completed' },
+    { Name: 'play on the switch', key: '3', time:'11:11', comp:'To be Completed' },
   ]);
 
   const addTodo = (Todo) => {
@@ -91,6 +91,15 @@ export default function NewTask({ route, navigation }) {
     }
   };
 
+  const addBottom = (Todo) => {
+    //Todo.key = Math.random().toString();
+    setTodos((currentTodos) => {
+      Todo.comp = 'Completed'
+      return [...currentTodos,Todo];
+    })
+  }
+
+
   const swipeoutBtns = (item) => {
     return {
       autoClose: true,
@@ -103,6 +112,21 @@ export default function NewTask({ route, navigation }) {
           onPress: () => {
             console.log(item.key);
             pressHandler(item.key);
+            //pressHandler(key);
+          }
+        }
+      ],
+      left: [
+        {
+          text: 'Completed',
+          backgroundColor: 'green',
+          height: 20,
+          buttonWidth: 50,
+          onPress: () => {
+            console.log(item.key);
+            pressHandler(item.key);
+            addBottom(item);
+            
             //pressHandler(key);
           }
         }
@@ -145,6 +169,7 @@ export default function NewTask({ route, navigation }) {
             <View>
             <Text style={{...styles.textTitle}}>{ item.Name }</Text>
             <Text>Start by:{item.time}</Text>
+            <Text>{item.comp}</Text>
             </View>
             </Card>
           </Swipeout>
