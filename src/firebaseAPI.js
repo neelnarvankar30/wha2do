@@ -6,13 +6,12 @@ import { ActivityIndicatorComponent } from 'react-native';
 
 var currentUser;
 
-export const createUser = (username, email, password, phone_number) => {
+export const createUser = (username, email, password) => {
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(function (result) {
             return result.user.updateProfile({
                 displayName: username,
-                // phoneNumber: phone_number
             })
         }).catch(function (error) {
             console.log(error);
@@ -48,20 +47,23 @@ export const addTask = (taskname, listname, username, uid) => {
         'listname': listname
     };
 
-    console.log(username);
-    console.log(username.username);
-    console.log(listname);
-    console.log(listname.listname);
+    console.log(data);
+    console.log("Username mila??", username);
+    // console.log(username.username);
+    console.log("Listname mila??", listname);
+    // console.log(listname.listname);
 
     firebase.database()
-        .ref('/users').child(uid).child(listname).child(task_id)
+        .ref('/users').child(uid).child(data.listname).child(data.id)
         .set(data)
-        .then(() => console.log('Task created!!!'));
+        .then(() => console.log('Task created!!!'))
+        .catch(err => console.log(err));
 }
 
-export const signOut = async () => {
+export const signOut = () => {
     try {
-        await firebase.auth().signOut();
+        firebase.auth().signOut();
+        console.log("signed Out!");
     } catch (e) {
         console.log(e);
     }

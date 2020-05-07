@@ -34,12 +34,18 @@ import { Button } from 'react-native-paper';
 
 const userSchema = yup.object({
   username: yup.string().required("Username required").min(5),
-  password: yup.string().required("Password required").min(8).max(16).matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-    "Must Contain atleast 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-  ),
+  password: yup.string().required("Password required").min(8).max(16)
+  // .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+    // "One Uppercase, One Lowercase, One Number and one special case Character"
+  // ),
+  ,
   email: yup.string().email("Not a valid email address").required("Email is required"),
   phone_number: yup.string().required("Phone number is required").min(10, "Phone number must be 10 digits long")
 })
+
+const signUpToast = () => {
+  ToastAndroid.show("Signing you up...", ToastAndroid.LONG);
+};
 
 state = {
   username: '',
@@ -92,30 +98,27 @@ export default function SignUp(props) {
         source={require('./Icons/logo.png')}
         style={{ width: 120, height: 120, shadowColor: 'white', paddingBottom: 30 }}
       />
-      <Text style={{ fontSize: 40, paddingBottom: 10 }}>Welcome.</Text>
+      <Text style={{ fontSize: 40, paddingBottom: 10 }}>Welcome</Text>
 
       <Formik
         initialValues={{ username: '', password: '', email: '', phone_number: '' }}
-        //validationSchema={userSchema}
+        validationSchema={userSchema}
         onSubmit={(values, actions) => {
-          if(values.password.length > 8){
-          navigation.navigate('TodoList', { UName: '' })
+          // navigation.navigate('TodoList', { UName: '' })
           actions.resetForm();
           addUser(values);
           // maybe write the logic to add the data into firebase over here
           Firebase.createUser(values.username, values.email, values.password);
-          Firebase.addTest(values.username, values.email, values.password, values.phone_number);
-          
-          firebase.auth().onAuthStateChanged(user => {
-            navigation.navigate(user ? 'TodoList' : 'SignUp')
-          })
-          // so currently, I am able to add new users inside the users json array (declared on line 36)
-          // hopefully we're able to send this data to firebase as well          
+          // Firebase.addTest(values.username, values.email, values.password, values.phone_number);
+          signUpToast();
+
+          setTimeout(() => {
+            firebase.auth().onAuthStateChanged(user => {
+              navigation.navigate(user ? 'TodoList' : 'SignUp')
+            })
+        }, 10000);
+
           // console.log(values);
-        }
-        else{
-          cannotBeEmpty();
-        }
         }}
         
       >
@@ -127,6 +130,7 @@ export default function SignUp(props) {
               onChangeText={props.handleChange('username')}
               value={props.values.username}
               onBlur={() => props.setFieldTouched('username')}
+              autoFocus
             >
 
             </TextInput>
@@ -137,7 +141,7 @@ export default function SignUp(props) {
 
             <TextInput
               style={styles.input}
-              placeholder='Password'
+              placeholder='Password (8 characters minimum)'
               secureTextEntry={true}
               onChangeText={props.handleChange('password')}
               value={props.values.password}

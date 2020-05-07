@@ -7,7 +7,7 @@ import TodoForm from './Components/TodoForm'
 import Card from './Components/card'
 import firebase from 'firebase';
 import { useEffect } from 'react';
-import firebaseAPI, { signOut } from '../src/firebaseAPI';
+import { signOut } from '../src/firebaseAPI';
 
 export default function TodoList({ route, navigation }) {
     //const { itemId } = route.params;
@@ -29,18 +29,17 @@ export default function TodoList({ route, navigation }) {
         return true;
     };
 
-
     // state = { currentUser: null }
     useEffect(() => {
         const { currentUser } = firebase.auth()
         setCurrentUser(currentUser)
+        console.log("current user is ->>>>> ", currentUser.displayName)
 
         BackHandler.addEventListener("hardwareBackPress", backAction);
-
         return () =>
             BackHandler.removeEventListener("hardwareBackPress", backAction);
     }, [])
-    console.log("current user is ->>>>> ", currentUser)
+
 
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -90,7 +89,7 @@ export default function TodoList({ route, navigation }) {
 
             <View style={{ flex: 1, backgroundColor: '#add8e6', alignItems: "center" }}>
 
-                <Text style={{fontSize:20}}>Welcome {currentUser.displayName}</Text>
+                <Text style={{fontSize: 30}}>Welcome, <Text style={{fontWeight: "bold"}}>{currentUser.displayName}</Text></Text>
             </View>
 
 

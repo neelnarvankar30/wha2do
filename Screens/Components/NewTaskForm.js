@@ -1,10 +1,10 @@
 import 'react-native-gesture-handler';
-import React, {Component, useState, useEffect} from 'react';
-import {View,Image,Text,Alert,TextInput,Button,TouchableHighlight,StyleSheet,Linking,Modal,FlatList,TouchableWithoutFeedback,Keyboard, ToastAndroid} from 'react-native';
-import {FormLabel,FormInput,FormValidationMessage,} from 'react-native-elements';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {RectButton, ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import React, { Component, useState, useEffect } from 'react';
+import { View, Image, Text, Alert, TextInput, Button, TouchableHighlight, StyleSheet, Linking, Modal, FlatList, TouchableWithoutFeedback, Keyboard, ToastAndroid } from 'react-native';
+import { FormLabel, FormInput, FormValidationMessage, } from 'react-native-elements';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { CheckBox } from "react-native-elements";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FAB } from 'react-native-paper';
@@ -12,18 +12,17 @@ import { Formik } from 'formik';
 import { addTask } from '../../src/firebaseAPI';
 import firebase from 'firebase';
 import DateTimePicker from '@react-native-community/datetimepicker';
-//import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function NewTaskForm({ addTodo }) {
 
     const [currentUser, setCurrentUser] = useState('');
 
     useEffect(() => {
-      const { currentUser } = firebase.auth()
-      setCurrentUser(currentUser)
+        const { currentUser } = firebase.auth()
+        setCurrentUser(currentUser)
+        console.log("current user in newtask form is ->>>>> ", currentUser.displayName)
     })
-  
-    console.log("current user in newtask form is ->>>>> ", currentUser)
+
 
     const cannotBeEmpty = () => {
         ToastAndroid.showWithGravityAndOffset(
@@ -76,7 +75,7 @@ export default function NewTaskForm({ addTodo }) {
                 onSubmit={(values) => {
                     if (values.Name.length > 2) {
                         addTodo(values);
-                        addTask(values.Name);
+                        // addTask(values.Name, );
                         console.log(values);
                     }
 

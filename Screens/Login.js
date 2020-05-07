@@ -19,15 +19,16 @@ export default function Login(props) {
         source={require('./Icons/logo.png')}
         style={{ width: 120, height: 120, shadowColor: 'white', paddingBottom: 30 }}
       />
-      <Text style={{ fontSize: 40, paddingBottom: 10 }}>Welcome back.</Text>
+      <Text style={{ fontSize: 40, paddingBottom: 10 }}>Welcome back!</Text>
 
 
       <TextInput
         style={styles.input}
-        placeholder="Username"
+        placeholder="Email address"
         autoCapitalize="none"
         placeholderTextColor="black"
         onChangeText={username => setUsername(username)}
+        autoFocus
       />
       <TextInput
         style={styles.input}
@@ -36,7 +37,6 @@ export default function Login(props) {
         autoCapitalize="none"
         placeholderTextColor="black"
         onChangeText={password => setPassword(password)}
-      // onChangeText={val => this.onChangeText('password', val)}
       />
 
 
