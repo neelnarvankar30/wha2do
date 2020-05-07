@@ -80,15 +80,7 @@ export default function TodoList({ route, navigation }) {
 
                 <View style={{ flex: 2, flexDirection: 'column', backgroundColor: '#add8e6', justifyContent: "center" }}>
                     <View style={{ flex: 1, backgroundColor: '#add8e6' }}>
-                        <FAB
-                            style={styles.fab_logout}
-                            icon="logout"
-                            onPress={() => {
-                                signOut()
-                                navigation.navigate('Home');
-                            }}
-                            color="white"
-                        />
+                        
                     </View>
                     <View style={{ flex: 1, backgroundColor: '#add8e6', borderBottomWidth: 2 }}>
                     </View>
@@ -114,19 +106,30 @@ export default function TodoList({ route, navigation }) {
                 )} />
             </View>
 
-            <View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#add8e6', justifyContent: 'flex-end' }}>
+            <View style={{ flex: 1, flexDirection: 'row-reverse',backgroundColor: '#add8e6'}}>
+                <View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#add8e6', justifyContent: 'flex-start' }}>
+                    <FAB
+                        style={styles.fab}
+                        icon="plus"
+                        onPress={() => {
+                            console.log("hello");
+                            setModalVisible(true);
+                        }}
+                        color="white"
+                    />
+                </View>
+                <View style={{ left:80, flex: 1, backgroundColor: '#add8e6', justifyContent: 'center', alignContent:'center' }}>
                 <FAB
-                    style={styles.fab}
-                    icon="plus"
-                    onPress={() => {
-                        console.log("hello");
-                        setModalVisible(true);
-                    }}
-                    color="white"
-                />
-
+                            style={styles.fab}
+                            icon="logout"
+                            onPress={() => {
+                                signOut()
+                                navigation.navigate('Home');
+                            }}
+                            color="white"
+                        />
+                </View>
             </View>
-
             <Modal
                 animationType="slide"
                 transparent={true}

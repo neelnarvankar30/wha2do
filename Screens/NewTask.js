@@ -63,9 +63,9 @@ export default function NewTask({ route, navigation }) {
   };
 
   const [todos, setTodos] = useState([
-    { Name: 'buy coffee', key: '1' },
-    { Name: 'create an app', key: '2' },
-    { Name: 'play on the switch', key: '3' },
+    { Name: 'buy coffee', key: '1', time:'3:15' },
+    { Name: 'create an app', key: '2', time:'10:20' },
+    { Name: 'play on the switch', key: '3', time:'11:11' },
   ]);
 
   const addTodo = (Todo) => {
@@ -150,10 +150,10 @@ export default function NewTask({ route, navigation }) {
         <FlatList showsVerticalScrollIndicator={false} style={{ width: 300 }} data={todos} renderItem={({ item }) => (
           <Swipeout style={{ backgroundColor: '#add8e6' }} buttonWidth={100} {...swipeoutBtns(item)} >
             <Card>
-              <View>
-                <Text style={{ ...styles.textTitle }}>{item.Name}</Text>
-                <Text>Start by:</Text>
-              </View>
+            <View>
+            <Text style={{...styles.textTitle}}>{ item.Name }</Text>
+            <Text>Start by:{item.time}</Text>
+            </View>
             </Card>
           </Swipeout>
         )} />

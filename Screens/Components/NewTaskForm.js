@@ -34,14 +34,16 @@ export default function NewTaskForm({ addTodo }) {
         );
     };
 
-    const [date, setDate] = useState(Date.now());
+    const [date, setDate] = useState(new Date(1598051730000));
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 
-    const onChange = (event, selectedDate) => {
+    const onSelect = (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
         setDate(currentDate);
+        testing();
+        
     };
 
     const showMode = currentMode => {
@@ -57,11 +59,19 @@ export default function NewTaskForm({ addTodo }) {
         showMode('time');
     };
 
+    var test;
+    const testing=() =>{    
+    var a = date.getHours();
+    var b = date.getMinutes();
+    var c = a + ':' + b;
+    return[c]
+    }
+
     return (
         <View style={styles.centeredView}>
 
             <Formik
-                initialValues={{ Name: '' }}
+                initialValues={{ Name: '', time: testing() }}
                 onSubmit={(values) => {
                     if (values.Name.length > 2) {
                         addTodo(values);
@@ -101,7 +111,7 @@ export default function NewTaskForm({ addTodo }) {
                                 mode={mode}
                                 is24Hour={true}
                                 display="default"
-                                onChange={onChange}
+                                onChange={onSelect}
                             />
                         )}
 
