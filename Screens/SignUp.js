@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { Component, useState } from 'react';
-import { View, Image, Text, TextInput, TouchableHighlight, StyleSheet, Linking, ActionSheetIOS,ToastAndroid, Keyboard } from 'react-native';
+import { View, Image, Text, TextInput, TouchableHighlight, StyleSheet, Linking, ActionSheetIOS, ToastAndroid, Keyboard } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -36,16 +36,17 @@ const userSchema = yup.object({
   username: yup.string().required("Username required").min(5),
   password: yup.string().required("Password required").min(8).max(16)
   // .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-    // "One Uppercase, One Lowercase, One Number and one special case Character"
+  // "One Uppercase, One Lowercase, One Number and one special case Character"
   // ),
   ,
   email: yup.string().email("Not a valid email address").required("Email is required"),
   phone_number: yup.string().required("Phone number is required").min(10, "Phone number must be 10 digits long")
 })
 
-const signUpToast = () => {
-  ToastAndroid.show("Signing you up...", ToastAndroid.LONG);
+const signUpToast = (message) => {
+  ToastAndroid.show(message, 3000);
 };
+
 
 state = {
   username: '',
@@ -84,13 +85,13 @@ export default function SignUp(props) {
   }
   const cannotBeEmpty = () => {
     ToastAndroid.showWithGravityAndOffset(
-        "Password cannot be less than eight characters",
-        ToastAndroid.SHORT,
-        ToastAndroid.BOTTOM,
-        25,
-        250
+      "Password cannot be less than eight characters",
+      ToastAndroid.SHORT,
+      ToastAndroid.BOTTOM,
+      25,
+      250
     );
-};
+  };
 
   return (
     <View style={styles.container}>
@@ -104,24 +105,28 @@ export default function SignUp(props) {
         initialValues={{ username: '', password: '', email: '', phone_number: '' }}
         validationSchema={userSchema}
         onSubmit={(values, actions) => {
-          // navigation.navigate('TodoList', { UName: '' })
-          
-          actions.resetForm();
-          addUser(values);
-          // maybe write the logic to add the data into firebase over here
-          Firebase.createUser(values.username, values.email, values.password);
-          // Firebase.addTest(values.username, values.email, values.password, values.phone_number);
-          signUpToast();
-          Keyboard.dismiss();
-          setTimeout(() => {
-            firebase.auth().onAuthStateChanged(user => {
-              navigation.navigate(user ? 'TodoList' : 'SignUp')
-            })
-        }, 1000);
 
-          // console.log(values);
+          actions.resetForm();
+          Keyboard.dismiss();
+          addUser(values);
+          // maybe write the  logic to add the data into firebase over here
+          Firebase.createUser(values.username, values.email, values.password);
+          signUpToast("Signing you up...");
+
+          setTimeout(() => {
+            var user = firebase.auth().currentUser;
+            if (user) {
+              signUpToast("Sign up successful!");
+              Firebase.addUserToDb(user.uid, values.username, values.email, values.password, values.phone_number);
+              navigation.navigate('TodoList');
+            }
+            else {
+              signUpToast("Sign up failed!");
+            }
+          }, 2000);
+
         }}
-        
+
       >
         {(props) => (
           <View>

@@ -18,10 +18,10 @@ export const createUser = (username, email, password) => {
         });
 }
 
-export const addTest = (username, email, password, phone_number) => {
+export const addUserToDb = (uid, username, email, password, phone_number) => {
 
     console.log("MD5 hash of ", password, " is ", md5(password));
-    url = '/users/'.concat(username);
+    let url = '/users/'.concat(uid);
     console.log(url);
 
     firebase.database()
