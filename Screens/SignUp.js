@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { Component, useState } from 'react';
-import { View, Image, Text, TextInput, TouchableHighlight, StyleSheet, Linking, ActionSheetIOS,ToastAndroid } from 'react-native';
+import { View, Image, Text, TextInput, TouchableHighlight, StyleSheet, Linking, ActionSheetIOS,ToastAndroid, Keyboard } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -105,18 +105,19 @@ export default function SignUp(props) {
         validationSchema={userSchema}
         onSubmit={(values, actions) => {
           // navigation.navigate('TodoList', { UName: '' })
+          
           actions.resetForm();
           addUser(values);
           // maybe write the logic to add the data into firebase over here
           Firebase.createUser(values.username, values.email, values.password);
           // Firebase.addTest(values.username, values.email, values.password, values.phone_number);
           signUpToast();
-
+          Keyboard.dismiss();
           setTimeout(() => {
             firebase.auth().onAuthStateChanged(user => {
               navigation.navigate(user ? 'TodoList' : 'SignUp')
             })
-        }, 10000);
+        }, 1000);
 
           // console.log(values);
         }}

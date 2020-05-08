@@ -116,13 +116,13 @@ export default function TodoList({ route, navigation }) {
                         color="white"
                     />
                 </View>
-                <View style={{left:80, flex: 1, backgroundColor: '#add8e6', justifyContent: 'center', alignContent:'center' }}>
+                <View style={{left:120, flex: 1, backgroundColor: '#add8e6', justifyContent: 'center', alignContent:'center' }}>
                 <FAB
                             style={styles.fab}
                             icon="logout"
                             onPress={() => {
-                                signOut()
                                 navigation.navigate('Home');
+                                signOut()
                             }}
                             color="white"
                         />

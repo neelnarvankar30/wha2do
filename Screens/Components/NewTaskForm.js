@@ -29,7 +29,7 @@ export default function NewTaskForm({ addTodo }) {
 
     const cannotBeEmpty = () => {
         ToastAndroid.showWithGravityAndOffset(
-            "Task name cannot be empty",
+            "Please add a task name",
             ToastAndroid.SHORT,
             ToastAndroid.BOTTOM,
             25,

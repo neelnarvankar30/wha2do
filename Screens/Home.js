@@ -35,9 +35,20 @@ export default function Home(props) {
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", backAction);
 
-    firebase.auth().onAuthStateChanged(user => {
-      navigation.navigate(user ? 'TodoList' : 'Home')
-    })
+    // firebase.auth().onAuthStateChanged(user => {
+
+    var user = firebase.auth().currentUser
+    console.log("HELLLLLLLLLLLOOOOOOOOOOO \n\n\n",user);
+
+    if(user){
+      navigation.navigate('TodoList')
+    }
+    else{
+      navigation.navigate('Home')
+    }
+      // navigation.navigate(user ? 'TodoList' : 'Home')
+
+      // })
     return () =>
       BackHandler.removeEventListener("hardwareBackPress", backAction);
 

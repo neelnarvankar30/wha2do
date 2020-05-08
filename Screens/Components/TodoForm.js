@@ -15,7 +15,7 @@ const showToast = () => {
 
     const cannotBeEmpty = () => {
         ToastAndroid.showWithGravityAndOffset(
-          "List name cannot be empty",
+          "Please add List name",
           ToastAndroid.SHORT,
           ToastAndroid.BOTTOM,
           25,

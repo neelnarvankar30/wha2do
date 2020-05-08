@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { Component, useState } from 'react';
-import { View, Image, Text, TextInput, TouchableHighlight, StyleSheet, Linking, } from 'react-native';
+import { View, Image, Text, TextInput, TouchableHighlight, StyleSheet, Linking,Keyboard } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -42,13 +42,16 @@ export default function Login(props) {
 
       <Button
         onPress={() => {
+          Keyboard.dismiss();
           firebase
           .auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(
         () => {
           return firebase.auth().signInWithEmailAndPassword(username, password)
           .then(() => {
             console.log("logged in!   -> ", username);
+            Keyboard.dismiss();
             navigation.navigate('TodoList');
+
           })
           .catch(error => this.setState({ errorMessage: error.message }))
               // navigation.navigate('TodoList', { UName: username });
