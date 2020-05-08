@@ -1,19 +1,10 @@
 import 'react-native-gesture-handler';
-import React, { Component, useState, useEffect } from 'react';
-import {BackHandler, View, Image, Text, Alert, TextInput, Button, TouchableHighlight, StyleSheet, Linking, Modal, FlatList, TouchableWithoutFeedback, Keyboard, ToastAndroid, RecyclerViewBackedScrollView } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage, } from 'react-native-elements';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { CheckBox } from "react-native-elements";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, { useState, useEffect } from 'react';
+import {BackHandler, View, Text, StyleSheet, Modal, FlatList, ToastAndroid } from 'react-native';
 import { FAB } from 'react-native-paper';
-import TodoItem from './Components/todoItem';
-import AddTodo from './Components/addTodo';
 import NewTaskForm from './Components/NewTaskForm'
 import Card from './Components/card';
 import { addTask } from '../src/firebaseAPI';
-import SwipeToDelete from 'react-swipe-to-delete-component';
 import Swipeout from 'react-native-swipeout';
 import firebase from 'firebase';
 
@@ -23,7 +14,7 @@ export default function NewTask({ route, navigation }) {
   const { LName } = route.params;
   const { username } = route.params;
 
-  const [currentUser, setCurrentUser] = useState('');
+  const [, setCurrentUser] = useState('');
 
   const backAction = () => {
     navigation.goBack(null);
@@ -42,15 +33,6 @@ export default function NewTask({ route, navigation }) {
   }, [])
 
   const [modalVisible, setModalVisible] = useState(false);
-  const showToastWithGravityAndOffset = () => {
-    ToastAndroid.showWithGravityAndOffset(
-      "New Task Created",
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER,
-      25,
-      50
-    );
-  };
 
   const cannotBeEmpty = () => {
     ToastAndroid.showWithGravityAndOffset(
@@ -86,18 +68,6 @@ export default function NewTask({ route, navigation }) {
     });
   };
 
-  const submitHandler = (text) => {
-    if (text.length > 3) {
-      setTodos(prevTodos => {
-        return [
-          { text, key: Math.random().toString() },
-          ...prevTodos
-        ];
-      });
-    } else {
-      cannotBeEmpty();
-    }
-  };
 
   const addBottom = (Todo) => {
     //Todo.key = Math.random().toString();

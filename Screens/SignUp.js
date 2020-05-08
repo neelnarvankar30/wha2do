@@ -1,14 +1,8 @@
 import 'react-native-gesture-handler';
-import React, { Component, useState } from 'react';
-import { View, Image, Text, TextInput, TouchableHighlight, StyleSheet, Linking, ActionSheetIOS, ToastAndroid, Keyboard } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage, } from 'react-native-elements';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, { useState } from 'react';
+import { View, Image, Text, TextInput, StyleSheet, ToastAndroid, Keyboard } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import database from '@react-native-firebase/database';
 // import firebase from '@react-native-firebase/app';
 // import { db } from '../src/config';
 import * as Firebase from '../src/firebaseAPI';
@@ -60,7 +54,6 @@ onChangeText = (key, val) => {
 };
 
 signUp = async () => {
-  const { username, password, email, phone_number } = this.state;
   try {
     // here place your signup logic
     console.log('user successfully signed up!: ', success);
@@ -71,7 +64,7 @@ signUp = async () => {
 
 export default function SignUp(props) {
   const { navigation } = props;
-  const [username, setUsername] = useState('');
+  const [] = useState('');
   const [users, setUsers] = useState([
     { username: 'asdgh', password: 'lol', email: 'hsk@gmail.com', phone_number: '2341321' }
   ]);
@@ -83,15 +76,6 @@ export default function SignUp(props) {
 
     console.log(users);
   }
-  const cannotBeEmpty = () => {
-    ToastAndroid.showWithGravityAndOffset(
-      "Password cannot be less than eight characters",
-      ToastAndroid.SHORT,
-      ToastAndroid.BOTTOM,
-      25,
-      250
-    );
-  };
 
   return (
     <View style={styles.container}>
@@ -104,12 +88,12 @@ export default function SignUp(props) {
       <Formik
         initialValues={{ username: '', password: '', email: '', phone_number: '' }}
         validationSchema={userSchema}
-        onSubmit={(values, actions) => {
+        onSubmit={(values) => {
 
-          actions.resetForm();
+          // actions.resetForm();
           Keyboard.dismiss();
           addUser(values);
-          // maybe write the  logic to add the data into firebase over here
+          // maybe write the logic to add the data into firebase over here
           Firebase.createUser(values.username, values.email, values.password);
           signUpToast("Signing you up...");
 
@@ -121,7 +105,7 @@ export default function SignUp(props) {
               navigation.navigate('TodoList');
             }
             else {
-              signUpToast("Sign up failed!");
+              // signUpToast("Sign up failed!");
             }
           }, 2000);
 
@@ -177,7 +161,7 @@ export default function SignUp(props) {
 
             <TextInput
               style={styles.input}
-              placeholder='Phone Number (10 digits)'
+              placeholder='Phone Number (US only)'
               onChangeText={props.handleChange('phone_number')}
               value={props.values.phone_number}
               keyboardType='phone-pad'
@@ -209,47 +193,6 @@ export default function SignUp(props) {
 
 }
 
-const styles1 = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#add8e6'
-  },
-  contentContainer: {
-    paddingTop: 15,
-  },
-  optionIconContainer: {
-    marginRight: 22,
-  },
-  option: {
-    backgroundColor: '#fdfdfd',
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderBottomWidth: 0,
-    borderColor: '#ededed',
-  },
-  welcomeImage: {
-    width: 300,
-    height: 300,
-    resizeMode: 'contain',
-    marginTop: 3,
-  },
-  welcomeImageContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  lastOption: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  optionText: {
-    fontSize: 15,
-    alignSelf: 'flex-start',
-    marginTop: 1,
-  },
-});
 
 const styles = StyleSheet.create({
   input: {

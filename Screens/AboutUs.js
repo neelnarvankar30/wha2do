@@ -1,9 +1,6 @@
 import 'react-native-gesture-handler';
-import React, {Component} from 'react';
-import {View,Image,Text,TextInput,Button,TouchableHighlight,StyleSheet,Linking,} from 'react-native';
-import {FormLabel,FormInput,FormValidationMessage,} from 'react-native-elements';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import React from 'react';
+import {View,Image,Text,StyleSheet,Linking,} from 'react-native';
 import {RectButton, ScrollView} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -129,21 +126,3 @@ const styles1 = StyleSheet.create({
     },
   });
   
-  const styles = StyleSheet.create({
-    input: {
-      width: 350,
-      height: 55,
-      backgroundColor: '#42A5F5',
-      margin: 10,
-      padding: 8,
-      color: 'white',
-      borderRadius: 14,
-      fontSize: 18,
-      fontWeight: '500',
-    },
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-  });

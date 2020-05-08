@@ -1,21 +1,13 @@
 import 'react-native-gesture-handler';
-import React, { Component, useState, useEffect } from 'react';
-import { View, Image, Text, Alert, TextInput, Button, TouchableHighlight, StyleSheet, Linking, Modal, FlatList, TouchableWithoutFeedback, Keyboard, ToastAndroid } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage, } from 'react-native-elements';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { CheckBox } from "react-native-elements";
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { FAB } from 'react-native-paper';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, ToastAndroid } from 'react-native';
 import { Formik } from 'formik';
-import { addTask } from '../../src/firebaseAPI';
 import firebase from 'firebase';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function NewTaskForm({ addTodo }) {
 
-    const [currentUser, setCurrentUser] = useState('');
+    const [, setCurrentUser] = useState('');
 
     useEffect(() => {
         const { currentUser } = firebase.auth()
@@ -54,15 +46,11 @@ export default function NewTaskForm({ addTodo }) {
         setMode(currentMode);
     };
 
-    const showDatepicker = () => {
-        showMode('date');
-    };
 
     const showTimepicker = () => {
         showMode('time');
     };
 
-    var test;
     const testing=() =>{    
     var a = date.getHours();
     var b = date.getMinutes();

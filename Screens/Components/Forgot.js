@@ -1,48 +1,55 @@
 import 'react-native-gesture-handler';
-import React, {Component, useState} from 'react';
-import {View,Image,Text,Alert,TextInput,Button,TouchableHighlight,StyleSheet,Linking,Modal,FlatList,TouchableWithoutFeedback,Keyboard, ToastAndroid} from 'react-native';
-import {FormLabel,FormInput,FormValidationMessage,} from 'react-native-elements';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {RectButton, ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import { CheckBox } from "react-native-elements";
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { FAB } from 'react-native-paper';
-import {Formik} from 'formik';
+import React, {  } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, Keyboard, ToastAndroid } from 'react-native';
+import { Formik } from 'formik';
+import * as yup from 'yup';
+import * as Firebase from '../../src/firebaseAPI'
+
+export default function Forgot({ hideModal }) {
+    // const [modalVisible, setModalVisible] = useState(false);
 
 
-export default function Forgot(){
-    
-    return(
-         
+    const userSchema = yup.object({
+        email: yup.string().email("Not a valid email address").required("Email is required"),
+    })
+
+    return (
+
         <View style={styles.centeredView}>
 
-            <Formik 
-                initialValues={{Name: '' }}
+            <Formik
+                initialValues={{ email: '' }}
+                validationSchema={userSchema}
                 onSubmit={(values) => {
-                    addTodo(values);
-                    addTask(values.Name);
+                    Firebase.passwordReset(values.email);
                     console.log(values);
+                    Keyboard.dismiss();
+                    hideModal();
                 }}
             >
 
-                {(props) => ( 
+                {(props) => (
 
                     <View style={styles.modalView}>
-                <Text>Please enter your email:</Text>
+                        <Text>Please enter your registered email:</Text>
 
-                <TextInput
-                    style={styles.input}
-                    placeholder="Email"
-                    autoCapitalize="none"
-                    placeholderTextColor="black"
-                    onChangeText={props.handleChange('Name')}
-                    value = {props.values.Name}
-                />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Email"
+                            autoCapitalize="none"
+                            placeholderTextColor="black"
+                            onChangeText={props.handleChange('email')}
+                            value={props.values.email}
+                            autoFocus
+                        />
 
-                <Button title='Send' color='grey' onPress={props.handleSubmit} />
-                
-            </View>
+                        {
+                            <Text style={{ fontSize: 10, color: 'red' }}>{props.errors.email}</Text>
+                        }
+
+                        <Button title='Send' color='grey' onPress={props.handleSubmit} />
+
+                    </View>
 
                 )}
 
@@ -50,35 +57,35 @@ export default function Forgot(){
             </Formik>
 
 
-           
+
         </View>
-    
-)
+
+    )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-      },
-      content: {
+    },
+    content: {
         padding: 40,
         flex: 1,
-      },
-      list: {
+    },
+    list: {
         marginTop: 20,
         flex: 1,
-      },
-    
-    input: {
-            width:250,
-            borderBottomWidth:2,
-            padding:10,
-            margin:10,
-            borderWidth:2,
-            borderRadius:20
     },
-    
+
+    input: {
+        width: 250,
+        borderBottomWidth: 2,
+        padding: 10,
+        margin: 10,
+        borderWidth: 2,
+        borderRadius: 20
+    },
+
     centeredView: {
         flex: 1,
         justifyContent: "center",
@@ -86,7 +93,7 @@ const styles = StyleSheet.create({
         marginTop: 22
     },
     modalView: {
-        width:325,
+        width: 325,
         margin: 20,
         backgroundColor: "white",
         borderRadius: 20,

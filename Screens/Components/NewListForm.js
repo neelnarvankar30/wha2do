@@ -1,13 +1,6 @@
 import 'react-native-gesture-handler';
-import React, {Component, useState} from 'react';
-import {View,Image,Text,Alert,TextInput,Button,TouchableHighlight,StyleSheet,Linking,Modal,FlatList,TouchableWithoutFeedback,Keyboard, ToastAndroid} from 'react-native';
-import {FormLabel,FormInput,FormValidationMessage,} from 'react-native-elements';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {RectButton, ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import { CheckBox } from "react-native-elements";
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { FAB } from 'react-native-paper';
+import React, {} from 'react';
+import {View,Text,TextInput,Button,StyleSheet} from 'react-native';
 import {Formik} from 'formik';
 import { addTask } from '../../src/firebaseAPI';
 

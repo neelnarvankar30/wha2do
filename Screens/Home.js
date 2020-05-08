@@ -1,13 +1,7 @@
 import 'react-native-gesture-handler';
-import React, { Component, useState } from 'react';
-import {BackHandler, Alert, View, Image, Text, TextInput, TouchableHighlight, StyleSheet, Linking, } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage, ThemeConsumer, } from 'react-native-elements';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, {  } from 'react';
+import {BackHandler, Alert, View, Image, Text, } from 'react-native';
 import { Button } from 'react-native-paper';
-import TodoList from "../Screens/TodoList"
 import firebase from 'firebase';
 import { useEffect } from 'react';
 

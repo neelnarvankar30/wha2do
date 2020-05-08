@@ -1,13 +1,10 @@
-import React, { Component, useState } from 'react';
-import { View, FlatList, Image, Text, TextInput, ToastAndroid, TouchableHighlight, Button, TouchableOpacity, StyleSheet, Linking, Modal } from 'react-native';
-import { CheckBox } from "react-native-elements";
-import { FAB, Card,CardActions, Title, Paragraph } from 'react-native-paper';
-import { ScrollView } from 'react-native-gesture-handler';
+import React, { useState } from 'react';
+import { View, Text, TextInput, ToastAndroid, Button, StyleSheet } from 'react-native';
 import {Formik} from 'formik';
 
 export default function TodoForm({addList}){
 
-const [modalVisible, setModalVisible] = useState(false);
+const [] = useState(false);
 
 const showToast = () => {
         ToastAndroid.show("New list created", ToastAndroid.SHORT);

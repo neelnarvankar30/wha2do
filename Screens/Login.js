@@ -1,11 +1,7 @@
 import 'react-native-gesture-handler';
-import React, { Component, useState } from 'react';
-import { View, Image, Text, TextInput, TouchableHighlight, StyleSheet, Linking,Keyboard, Modal } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage, } from 'react-native-elements';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { RectButton, ScrollView, FlatList, TouchableOpacity } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, { useState } from 'react';
+import { View, Image, Text, TextInput, StyleSheet, Keyboard, Modal } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 import firebase from 'firebase';
 import Forgot from './Components/Forgot'
@@ -14,6 +10,10 @@ export default function Login(props) {
   const [password, setPassword] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const { navigation } = props
+  const hideModal = () => {
+    setModalVisible(false)
+  }
+  
   return (
     <View style={styles.container}>
       <Image
@@ -65,7 +65,7 @@ export default function Login(props) {
           </Button>
           <Text></Text>
           <TouchableOpacity onPress={() => {setModalVisible(true);}}>
-          <Text>Forgot Password?</Text>
+          <Text style={{fontWeight:"bold", textDecorationLine: 'underline'}}>Forgot Password?</Text>
         </TouchableOpacity>
 
           <Modal
@@ -77,7 +77,7 @@ export default function Login(props) {
                 }}
             >
 
-                <Forgot />
+                <Forgot hideModal = {hideModal} />
 
             </Modal>
 
@@ -86,45 +86,6 @@ export default function Login(props) {
   )
 }
 
-const styles1 = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#add8e6',
-  },
-  contentContainer: {
-    paddingTop: 15,
-  },
-  optionIconContainer: {
-    marginRight: 22,
-  },
-  option: {
-    backgroundColor: '#fdfdfd',
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderBottomWidth: 0,
-    borderColor: '#ededed',
-  },
-  welcomeImage: {
-    width: 300,
-    height: 300,
-    resizeMode: 'contain',
-    marginTop: 3,
-  },
-  welcomeImageContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  lastOption: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  optionText: {
-    fontSize: 15,
-    alignSelf: 'flex-start',
-    marginTop: 1,
-  },
-});
 
 const styles = StyleSheet.create({
   input: {

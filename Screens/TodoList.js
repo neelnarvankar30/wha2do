@@ -1,21 +1,24 @@
-import React, { Component, useState } from 'react';
-import { BackHandler, Alert, View, FlatList, Image, Text, TextInput, ToastAndroid, TouchableHighlight, Button, TouchableOpacity, StyleSheet, Linking, Modal } from 'react-native';
-import { CheckBox } from "react-native-elements";
-import { FAB, CardActions, Title, Paragraph } from 'react-native-paper';
-import { ScrollView } from 'react-native-gesture-handler';
+import React, { useState } from 'react';
+import { BackHandler, Alert, View, FlatList, Text, ToastAndroid, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import { FAB } from 'react-native-paper';
 import TodoForm from './Components/TodoForm'
 import Card from './Components/card'
 import firebase from 'firebase';
 import { useEffect } from 'react';
 import { signOut } from '../src/firebaseAPI';
 
-export default function TodoList({ route, navigation }) {
+export default function TodoList({ navigation }) {
     //const { itemId } = route.params;
     //const { otherParam } = route.params;
     // const { UName } = route.params;
     // const [lname, setlname] = useState('');
 
     const [currentUser, setCurrentUser] = useState('');
+
+    const toastMessage = (message, time) => {
+        ToastAndroid.show(message, time);
+      };
+
 
     const backAction = () => {
         Alert.alert("Exit app?", "Are you sure you want to exit?", [
@@ -57,12 +60,7 @@ export default function TodoList({ route, navigation }) {
         setModalVisible(false);
     }
 
-    const listName = "Grocery";
-    const date = "30 Apr 20";
 
-    const showToast = () => {
-        ToastAndroid.show("New list created!", ToastAndroid.SHORT);
-    };
 
     return (
         <View style={{ flex: 1, flexDirection: 'column' }}>
@@ -121,8 +119,9 @@ export default function TodoList({ route, navigation }) {
                             style={styles.fab}
                             icon="logout"
                             onPress={() => {
-                                navigation.navigate('Home');
+                                toastMessage("Signing out...", 2000)
                                 signOut()
+                                navigation.navigate('Home');
                             }}
                             color="white"
                         />

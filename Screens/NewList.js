@@ -1,34 +1,17 @@
 import 'react-native-gesture-handler';
-import React, {Component, useState} from 'react';
-import {View,Image,Text,Alert,TextInput,Button,TouchableHighlight,StyleSheet,Linking,Modal,FlatList,TouchableWithoutFeedback,Keyboard, ToastAndroid, RecyclerViewBackedScrollView} from 'react-native';
-import {FormLabel,FormInput,FormValidationMessage,} from 'react-native-elements';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {RectButton, ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import { CheckBox } from "react-native-elements";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, {useState} from 'react';
+import {View,Text,StyleSheet,Modal,FlatList,ToastAndroid} from 'react-native';
 import { FAB } from 'react-native-paper';
-import TodoItem from './Components/todoItem';
-import AddTodo from './Components/addTodo';
 import NewListForm from './Components/NewListForm'
 import Card from './Components/card';
 import { addTask } from '../src/firebaseAPI';
 
-export default function NewList({route, navigation}){
+export default function NewList({route}){
 
     const {LName} = route.params;
     const {username} = route.params;
 
     const [modalVisible, setModalVisible] = useState(false);
-    const showToastWithGravityAndOffset = () => {
-        ToastAndroid.showWithGravityAndOffset(
-          "New Task Created",
-          ToastAndroid.SHORT,
-          ToastAndroid.CENTER,
-          25,
-          50
-        );
-      };
     
       const cannotBeEmpty = () => {
         ToastAndroid.showWithGravityAndOffset(
@@ -57,24 +40,7 @@ export default function NewList({route, navigation}){
         setModalVisible(false);
       }
     
-      const pressHandler = (key) => {
-        setTodos(prevTodos => {
-          return prevTodos.filter(todo => todo.key != key);
-        });
-      };
     
-      const submitHandler = (text) => {
-        if(text.length > 3){
-          setTodos(prevTodos => {
-            return [
-              { text, key: Math.random().toString() },
-              ...prevTodos
-            ];
-          });
-        } else {
-          cannotBeEmpty();
-        }
-      };
 
     return(
         // <TouchableWithoutFeedback onPress={() => {

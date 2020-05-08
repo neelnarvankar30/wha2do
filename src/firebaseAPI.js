@@ -1,10 +1,8 @@
 // import firebase from '@react-native-firebase/app';
-import auth from '@react-native-firebase/auth';
 import md5 from 'md5';
 import firebase from 'firebase';
-import { ActivityIndicatorComponent } from 'react-native';
+import { ToastAndroid } from 'react-native';
 
-var currentUser;
 
 export const createUser = (username, email, password) => {
 
@@ -15,6 +13,9 @@ export const createUser = (username, email, password) => {
             })
         }).catch(function (error) {
             console.log(error);
+            if(error.code == 'auth/email-already-in-use'){
+                ToastAndroid.show("Email already registered, please login", ToastAndroid.LONG);
+            }
         });
 }
 
@@ -67,4 +68,15 @@ export const signOut = () => {
     } catch (e) {
         console.log(e);
     }
+}
+
+export const passwordReset = (email) => {
+    firebase.auth().sendPasswordResetEmail(email)
+    .then(ToastAndroid.show("Password reset link has been \nsent to your registered email", ToastAndroid.LONG))
+    .catch(function (error) {
+        console.log(error);
+        if(error.code == 'auth/user-not-found'){
+            ToastAndroid.show("This email is not registered with us. \nPlease consider signing up", ToastAndroid.LONG);
+        }
+    });
 }

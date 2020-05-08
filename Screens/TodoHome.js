@@ -1,14 +1,10 @@
-import React, { Component, useState } from 'react';
-import { View, FlatList, Image, Text, TextInput, ToastAndroid, TouchableHighlight, Button, TouchableOpacity, StyleSheet, Linking, Modal } from 'react-native';
-import { CheckBox } from "react-native-elements";
-import { FAB,CardActions, Title, Paragraph } from 'react-native-paper';
-import { ScrollView } from 'react-native-gesture-handler';
+import React, { useState } from 'react';
+import { View, FlatList, Text, ToastAndroid, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import { FAB } from 'react-native-paper';
 import TodoForm from './Components/TodoForm'
 import Card from './Components/card'   
 
 export default function TodoHome({ route, navigation }) {
-    const { itemId } = route.params;
-    const { otherParam } = route.params;
     const { UName } = route.params;
    // const [lname, setlname] = useState('');
     
@@ -28,12 +24,7 @@ export default function TodoHome({ route, navigation }) {
         setModalVisible(false);
       }
 
-    const listName = "Grocery";
-    const date = "30 Apr 20";
 
-    const showToast = () => {
-        ToastAndroid.show("New list created!", ToastAndroid.SHORT);
-    };
 
     return (
         <View style={{ flex: 1, flexDirection: 'column' }}>
