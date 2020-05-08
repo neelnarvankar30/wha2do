@@ -1,17 +1,18 @@
 import 'react-native-gesture-handler';
 import React, { Component, useState } from 'react';
-import { View, Image, Text, TextInput, TouchableHighlight, StyleSheet, Linking,Keyboard } from 'react-native';
+import { View, Image, Text, TextInput, TouchableHighlight, StyleSheet, Linking,Keyboard, Modal } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { RectButton, ScrollView, FlatList } from 'react-native-gesture-handler';
+import { RectButton, ScrollView, FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-paper';
 import firebase from 'firebase';
-
+import Forgot from './Components/Forgot'
 export default function Login(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
   const { navigation } = props
   return (
     <View style={styles.container}>
@@ -38,8 +39,9 @@ export default function Login(props) {
         placeholderTextColor="black"
         onChangeText={password => setPassword(password)}
       />
-
-
+      
+    
+    
       <Button
         onPress={() => {
           Keyboard.dismiss();
@@ -57,11 +59,28 @@ export default function Login(props) {
               // navigation.navigate('TodoList', { UName: username });
         }
       )}}
-
         mode='outlined'
         color='black'>
         Log In
           </Button>
+          <Text></Text>
+          <TouchableOpacity onPress={() => {setModalVisible(true);}}>
+          <Text>Forgot Password?</Text>
+        </TouchableOpacity>
+
+          <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+
+                <Forgot />
+
+            </Modal>
+
 
     </View>
   )
