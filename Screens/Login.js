@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useState } from 'react';
-import { View, Image, Text, TextInput, StyleSheet, Keyboard, Modal } from 'react-native';
+import { View, Image, Text, TextInput, StyleSheet, Keyboard, Modal, ToastAndroid } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 import firebase from 'firebase';
@@ -55,8 +55,18 @@ export default function Login(props) {
             navigation.navigate('TodoList');
 
           })
-          .catch(error => this.setState({ errorMessage: error.message }))
-              // navigation.navigate('TodoList', { UName: username });
+          .catch(function (error) {
+            console.log(error);
+            if(error.code == 'auth/user-not-found'){
+                ToastAndroid.show("Email not registered, please signup first", ToastAndroid.LONG);
+            }
+            else if(error.code == 'auth/wrong-password'){
+              ToastAndroid.show("Password seems to be incorrect", ToastAndroid.LONG);
+            }
+            else{
+                ToastAndroid.show("Login failed!", ToastAndroid.LONG);
+            }
+        })
         }
       )}}
         mode='outlined'

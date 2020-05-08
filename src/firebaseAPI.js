@@ -16,6 +16,9 @@ export const createUser = (username, email, password) => {
             if(error.code == 'auth/email-already-in-use'){
                 ToastAndroid.show("Email already registered, please login", ToastAndroid.LONG);
             }
+            else{
+                ToastAndroid.show("Sign up failed!", ToastAndroid.LONG);
+            }
         });
 }
 
