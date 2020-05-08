@@ -102,13 +102,21 @@ export default function NewTask({ route, navigation }) {
   const addBottom = (Todo) => {
     //Todo.key = Math.random().toString();
     setTodos((currentTodos) => {
-      Todo.comp = 'Completed'
+      if(Todo.comp == 'Completed'){
+      Todo.comp = 'To be Completed'
+      return[Todo, ...currentTodos]
+      }
+      else{
+        Todo.comp = 'Completed'
+      }
       return [...currentTodos,Todo];
     })
   }
 
 
   const swipeoutBtns = (item) => {
+   if(item.comp == 'To be Completed')
+   {
     return {
       autoClose: true,
       right: [
@@ -140,6 +148,38 @@ export default function NewTask({ route, navigation }) {
         }
       ]
     };
+    }
+    else{
+      return{
+        right: [
+          {
+            text: 'Delete',
+            backgroundColor: 'red',
+            height: 20,
+            buttonWidth: 50,
+            onPress: () => {
+              console.log(item.key);
+              pressHandler(item.key);
+              //pressHandler(key);
+            }
+          }
+        ],
+        left: [
+          {
+            text: 'Undo',
+            backgroundColor: '#DAA520',
+            height: 20,
+            buttonWidth: 50,
+            onPress: () => {
+              console.log(item.key);
+              pressHandler(item.key);
+              addBottom(item);     
+              //pressHandler(key);
+            }
+          }
+        ]   
+      };
+    }
   };
 
 
@@ -176,8 +216,8 @@ export default function NewTask({ route, navigation }) {
             <Card>
             <View>
             <Text style={{...styles.textTitle}}>{ item.Name }</Text>
-            <Text>Start by:{item.time}</Text>
-            <Text>{item.comp}</Text>
+            <Text>Start by: {item.time}</Text>
+            <Text>Status: {item.comp}</Text>
             </View>
             </Card>
           </Swipeout>

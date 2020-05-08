@@ -89,7 +89,7 @@ export default function TodoList({ route, navigation }) {
 
             <View style={{ flex: 1, backgroundColor: '#add8e6', alignItems: "center" }}>
 
-                <Text style={{fontSize: 30}}>Welcome, <Text style={{fontWeight: "bold"}}>{currentUser.displayName}</Text></Text>
+                <Text style={{fontSize: 25}}>Welcome, <Text style={{fontWeight: "bold"}}>{currentUser.displayName}</Text></Text>
             </View>
 
 

@@ -23,6 +23,9 @@ export default function NewTaskForm({ addTodo }) {
         console.log("current user in newtask form is ->>>>> ", currentUser.displayName)
     })
 
+    const showToast = () => {
+        ToastAndroid.show("New Task created", ToastAndroid.SHORT);
+    };
 
     const cannotBeEmpty = () => {
         ToastAndroid.showWithGravityAndOffset(
@@ -74,8 +77,10 @@ export default function NewTaskForm({ addTodo }) {
                 initialValues={{ Name: '', time: testing(), comp:'To be Completed' }}
                 onSubmit={(values) => {
                     if (values.Name.length > 2) {
+                        showToast();
                         addTodo(values);
                         // addTask(values.Name, );
+
                         console.log(values);
                     }
 

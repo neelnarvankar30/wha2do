@@ -55,9 +55,10 @@ const showToast = () => {
                             onChangeText={props.handleChange('Name')}
                             value = {props.values.Name}
                         />
-                        <CheckBox style={styles.checkbox}
+                        {/* <CheckBox style={styles.checkbox}
                             title='Enable Notifications'
-                        />
+                            checked = 'true'
+                        /> */}
 
                         <Button title='Add' color='grey' onPress={props.handleSubmit} />
 
