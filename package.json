@@ -20,7 +20,7 @@
         "formik": "^2.1.4",
         "md5": "^2.2.1",
         "react": "16.9.0",
-        "react-native": "^0.62.2",
+        "react-native": "^0.62.3",
         "react-native-gesture-handler": "^1.6.1",
         "react-native-paper": "^3.8.0",
         "react-native-reanimated": "^1.8.0",
